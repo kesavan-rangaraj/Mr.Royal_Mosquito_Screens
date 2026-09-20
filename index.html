@@ -3,18 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101820">
 <title>Mr. Royal Mosquito Screens - Udumalpet</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
 
 html,body{
     width:100%;
     min-height:100%;
     font-family:Arial,Helvetica,sans-serif;
-    background:#11161a;
-    color:white;
+    background:#101820;
+    color:#fff;
 }
+
+body{
+    overflow-x:hidden;
+}
+
+/* =========================================================
+   FULL-SCREEN VIDEO BACKGROUND
+   10 videos are used. JavaScript selects them randomly.
+   Put video1.mp4 ... video10.mp4 in the same folder.
+   ========================================================= */
 
 #backgroundMedia{
     position:fixed;
@@ -23,179 +38,261 @@ html,body{
     height:100%;
     overflow:hidden;
     z-index:-10;
-    background:#11161a;
+    background:#101820;
 }
 
-.bg-photo,.bg-video{
+.bg-video{
     position:absolute;
     inset:0;
     width:100%;
     height:100%;
     object-fit:cover;
+    object-position:center center;
     opacity:0;
     transition:opacity 1.2s ease-in-out;
 }
 
-.bg-photo.active,.bg-video.active{opacity:1}
+.bg-video.active{
+    opacity:1;
+}
 
+/* Dark/light transparent layer.
+   It keeps the video clearly visible while text remains readable. */
 .background-overlay{
     position:absolute;
     inset:0;
-    background:linear-gradient(rgba(0,0,0,.48),rgba(0,0,0,.58));
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,.28) 0%,
+            rgba(0,0,0,.38) 45%,
+            rgba(0,0,0,.52) 100%
+        );
     z-index:5;
+    pointer-events:none;
 }
+
+/* =========================================================
+   PAGE
+   ========================================================= */
 
 .page{
     position:relative;
     min-height:100vh;
-    padding:25px 20px 70px;
+    padding:24px 18px 60px;
 }
 
 .header{
     text-align:center;
-    margin-bottom:35px;
+    margin:10px auto 28px;
+    max-width:1200px;
 }
 
 .header h1{
-    font-size:clamp(34px,6vw,68px);
+    font-size:clamp(30px,5vw,64px);
     font-weight:800;
-    text-shadow:0 4px 18px rgba(0,0,0,.8);
+    text-shadow:0 4px 18px rgba(0,0,0,.9);
 }
 
 .header p{
-    margin-top:10px;
-    font-size:clamp(16px,2.5vw,24px);
-    color:#e4e8ef;
+    margin-top:8px;
+    font-size:clamp(16px,2.3vw,24px);
+    color:#f2f5f8;
+    text-shadow:0 2px 10px #000;
 }
 
+/* Main glass panel */
 .content{
-    width:min(1100px,94vw);
+    width:min(1120px,96vw);
     margin:0 auto;
-    padding:30px;
-    border:1px solid rgba(255,255,255,.22);
-    border-radius:24px;
-    background:rgba(15,20,24,.66);
-    backdrop-filter:blur(12px);
-    -webkit-backdrop-filter:blur(12px);
-    box-shadow:0 20px 60px rgba(0,0,0,.38);
+    padding:24px;
+    border:1px solid rgba(255,255,255,.30);
+    border-radius:22px;
+    background:rgba(10,18,24,.55);
+    backdrop-filter:blur(7px);
+    -webkit-backdrop-filter:blur(7px);
+    box-shadow:0 20px 70px rgba(0,0,0,.45);
 }
 
-.contact-title,.links-title,.faq-title{
+/* =========================================================
+   SECTION HEADINGS
+   ========================================================= */
+
+.section-title{
     text-align:center;
-    font-size:clamp(28px,4vw,48px);
-    margin-bottom:25px;
+    font-size:clamp(27px,4vw,44px);
+    margin:8px 0 22px;
+    text-shadow:0 3px 12px #000;
 }
+
+/* =========================================================
+   CONTACT
+   ========================================================= */
 
 .contact-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:15px;
+    gap:14px;
 }
 
 .contact-card{
-    padding:22px;
-    border-bottom:1px solid rgba(255,255,255,.16);
-    min-height:125px;
+    padding:20px;
+    border:1px solid rgba(255,255,255,.20);
+    border-radius:15px;
+    background:rgba(255,255,255,.10);
+    min-height:115px;
 }
 
 .contact-card h2{
-    font-size:28px;
-    margin-bottom:12px;
+    font-size:24px;
+    margin-bottom:10px;
 }
 
 .contact-card a{
-    color:#c4cbd8;
-    font-size:22px;
+    color:#fff;
+    font-size:19px;
     font-weight:600;
     text-decoration:none;
     word-break:break-word;
 }
 
 .contact-card a:hover{
-    color:white;
     text-decoration:underline;
 }
 
-/* ===== LINKS SECTION ===== */
+/* =========================================================
+   LINKS
+   ========================================================= */
+
 .links-section{
-    margin-top:45px;
+    margin-top:38px;
 }
 
 .links-list{
-    border-top:1px solid rgba(255,255,255,.14);
+    border-top:1px solid rgba(255,255,255,.20);
 }
 
 .link-item{
     display:flex;
     align-items:center;
-    gap:24px;
-    padding:25px 5px;
-    border-bottom:1px solid rgba(255,255,255,.14);
+    gap:20px;
+    padding:20px 8px;
+    border-bottom:1px solid rgba(255,255,255,.18);
     text-decoration:none;
-    color:white;
+    color:#fff;
     transition:.25s ease;
 }
 
 .link-item:hover{
-    background:rgba(255,255,255,.07);
-    transform:translateX(5px);
+    background:rgba(255,255,255,.10);
+    transform:translateX(4px);
 }
 
 .link-icon{
-    width:78px;
-    min-width:78px;
-    height:78px;
-    border:4px solid white;
+    width:62px;
+    min-width:62px;
+    height:62px;
+    border:2px solid rgba(255,255,255,.85);
     border-radius:50%;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:35px;
-}
-
-.link-text{
-    min-width:0;
+    font-size:28px;
+    background:rgba(0,0,0,.18);
 }
 
 .link-text h3{
-    font-size:28px;
-    margin-bottom:8px;
+    font-size:23px;
+    margin-bottom:5px;
 }
 
 .link-text span{
-    color:#aeb6c5;
-    font-size:21px;
-    font-weight:600;
+    color:#e2e8ef;
+    font-size:16px;
     word-break:break-all;
 }
 
-.faq-title{
-    margin-top:50px;
+/* =========================================================
+   QUICK SERVICES TABLE
+   Light transparent colours so the background video
+   remains visible.
+   ========================================================= */
+
+.services-section{
+    margin-top:42px;
 }
 
-.faq-category{
-    margin-top:25px;
-    font-size:24px;
-    font-weight:700;
-    padding:15px 18px;
-    border-radius:12px;
+.table-wrap{
+    width:100%;
+    overflow-x:auto;
+    border-radius:15px;
+    border:1px solid rgba(255,255,255,.25);
+    background:rgba(255,255,255,.08);
+}
+
+.services-table{
+    width:100%;
+    min-width:650px;
+    border-collapse:collapse;
+}
+
+.services-table th{
+    background:rgba(255,255,255,.18);
+    color:#fff;
+    padding:15px 14px;
+    text-align:left;
+    font-size:17px;
+}
+
+.services-table td{
+    padding:14px;
+    border-top:1px solid rgba(255,255,255,.14);
+    color:#f3f6f8;
+    background:rgba(20,30,36,.18);
+    font-size:16px;
+}
+
+.services-table tr:hover td{
     background:rgba(255,255,255,.10);
 }
 
+/* =========================================================
+   FAQ
+   ========================================================= */
+
+.faq-title{
+    text-align:center;
+    font-size:clamp(27px,4vw,44px);
+    margin:45px 0 22px;
+    text-shadow:0 3px 12px #000;
+}
+
+.faq-category{
+    margin-top:22px;
+    font-size:22px;
+    font-weight:700;
+    padding:14px 17px;
+    border-radius:12px;
+    background:rgba(255,255,255,.13);
+    border:1px solid rgba(255,255,255,.14);
+}
+
 .faq{
-    margin-top:10px;
-    border-bottom:1px solid rgba(255,255,255,.14);
+    margin-top:8px;
+    border-bottom:1px solid rgba(255,255,255,.15);
 }
 
 .faq summary{
     cursor:pointer;
     list-style:none;
-    padding:18px;
+    padding:17px;
     font-size:18px;
     font-weight:600;
 }
 
-.faq summary::-webkit-details-marker{display:none}
+.faq summary::-webkit-details-marker{
+    display:none;
+}
 
 .faq summary::after{
     content:"+";
@@ -203,59 +300,147 @@ html,body{
     font-size:24px;
 }
 
-.faq[open] summary::after{content:"−"}
+.faq[open] summary::after{
+    content:"−";
+}
 
 .answer{
-    padding:0 18px 18px;
-    color:#d3d8e0;
+    padding:0 17px 17px;
+    color:#e1e6eb;
     line-height:1.65;
     font-size:16px;
 }
 
-.media-note{
-    margin-top:35px;
-    padding:18px;
-    border-radius:15px;
+/* =========================================================
+   VIDEO STATUS
+   ========================================================= */
+
+.video-status{
+    margin-top:28px;
+    padding:12px 16px;
+    border-radius:12px;
     text-align:center;
-    background:rgba(255,255,255,.08);
-    color:#dfe4eb;
+    background:rgba(0,0,0,.30);
+    border:1px solid rgba(255,255,255,.16);
+    color:#eef2f5;
+    font-size:14px;
 }
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
 
 .footer{
     text-align:center;
-    margin-top:35px;
-    color:#cbd0d8;
-    font-size:15px;
+    margin-top:28px;
+    color:#e1e6eb;
+    font-size:14px;
+    text-shadow:0 2px 7px #000;
 }
 
-@media(max-width:800px){
-    .content{padding:18px}
+/* =========================================================
+   MOBILE
+   ========================================================= */
 
-    .contact-grid{grid-template-columns:1fr}
+@media(max-width:800px){
+
+    .page{
+        padding:14px 10px 40px;
+    }
+
+    .header{
+        margin-bottom:18px;
+    }
+
+    .content{
+        width:100%;
+        padding:16px;
+        border-radius:17px;
+        background:rgba(10,18,24,.50);
+    }
+
+    .contact-grid{
+        grid-template-columns:1fr;
+    }
 
     .contact-card{
         min-height:auto;
-        padding:18px 8px;
+        padding:17px;
     }
 
-    .contact-card h2{font-size:25px}
-    .contact-card a{font-size:19px}
+    .contact-card h2{
+        font-size:22px;
+    }
+
+    .contact-card a{
+        font-size:17px;
+    }
 
     .link-item{
-        gap:15px;
-        padding:20px 3px;
+        gap:13px;
+        padding:17px 3px;
     }
 
     .link-icon{
-        width:58px;
-        min-width:58px;
-        height:58px;
-        font-size:25px;
-        border-width:3px;
+        width:52px;
+        min-width:52px;
+        height:52px;
+        font-size:23px;
     }
 
-    .link-text h3{font-size:23px}
-    .link-text span{font-size:16px}
+    .link-text h3{
+        font-size:20px;
+    }
+
+    .link-text span{
+        font-size:14px;
+    }
+
+    .faq summary{
+        font-size:16px;
+        padding:15px 8px;
+    }
+
+    .answer{
+        padding:0 8px 15px;
+        font-size:15px;
+    }
+
+    .faq-category{
+        font-size:19px;
+        padding:12px 13px;
+    }
+
+    .background-overlay{
+        background:
+            linear-gradient(
+                180deg,
+                rgba(0,0,0,.24),
+                rgba(0,0,0,.48)
+            );
+    }
+}
+
+/* Very small phones */
+@media(max-width:420px){
+
+    .header h1{
+        font-size:30px;
+    }
+
+    .content{
+        padding:13px;
+    }
+
+    .section-title{
+        font-size:27px;
+    }
+
+    .services-table th,
+    .services-table td{
+        padding:11px;
+        font-size:14px;
+    }
 }
 </style>
 </head>
@@ -263,43 +448,63 @@ html,body{
 <body>
 
 <!-- =========================================================
-     BACKGROUND: 10 PHOTOS + VIDEOS
-     Put these files in the SAME folder as this HTML:
-
-     photo1.jpg
-     photo2.jpg
-     photo3.jpg
-     photo4.jpg
-     photo5.jpg
-     photo6.jpg
-     photo7.jpg
-     photo8.jpg
-     photo9.jpg
-     photo10.jpg
+     FULL-SCREEN BACKGROUND
+     Add these 10 files beside index.html:
 
      video1.mp4
      video2.mp4
+     video3.mp4
+     video4.mp4
+     video5.mp4
+     video6.mp4
+     video7.mp4
+     video8.mp4
+     video9.mp4
+     video10.mp4
+
+     The website randomly chooses the next video.
      ========================================================= -->
 
 <div id="backgroundMedia">
 
-    <img class="bg-photo active" src="photo1.jpg" alt="Mosquito Screen 1">
-    <img class="bg-photo" src="photo2.jpg" alt="Mosquito Screen 2">
-    <img class="bg-photo" src="photo3.jpg" alt="Mosquito Screen 3">
-    <img class="bg-photo" src="photo4.jpg" alt="Mosquito Screen 4">
-    <img class="bg-photo" src="photo5.jpg" alt="Mosquito Screen 5">
-    <img class="bg-photo" src="photo6.jpg" alt="Mosquito Screen 6">
-    <img class="bg-photo" src="photo7.jpg" alt="Mosquito Screen 7">
-    <img class="bg-photo" src="photo8.jpg" alt="Mosquito Screen 8">
-    <img class="bg-photo" src="photo9.jpg" alt="Mosquito Screen 9">
-    <img class="bg-photo" src="photo10.jpg" alt="Mosquito Screen 10">
-
-    <video class="bg-video" id="video1" muted playsinline preload="auto">
+    <video class="bg-video" id="video1" muted playsinline preload="metadata">
         <source src="video1.mp4" type="video/mp4">
     </video>
 
-    <video class="bg-video" id="video2" muted playsinline preload="auto">
+    <video class="bg-video" id="video2" muted playsinline preload="metadata">
         <source src="video2.mp4" type="video/mp4">
+    </video>
+
+    <video class="bg-video" id="video3" muted playsinline preload="metadata">
+        <source src="video3.mp4" type="video/mp4">
+    </video>
+
+    <video class="bg-video" id="video4" muted playsinline preload="metadata">
+        <source src="video4.mp4" type="video/mp4">
+    </video>
+
+    <video class="bg-video" id="video5" muted playsinline preload="metadata">
+        <source src="video5.mp4" type="video/mp4">
+    </video>
+
+    <video class="bg-video" id="video6" muted playsinline preload="metadata">
+        <source src="video6.mp4" type="video/mp4">
+    </video>
+
+    <video class="bg-video" id="video7" muted playsinline preload="metadata">
+        <source src="video7.mp4" type="video/mp4">
+    </video>
+
+    <video class="bg-video" id="video8" muted playsinline preload="metadata">
+        <source src="video8.mp4" type="video/mp4">
+    </video>
+
+    <video class="bg-video" id="video9" muted playsinline preload="metadata">
+        <source src="video9.mp4" type="video/mp4">
+    </video>
+
+    <video class="bg-video" id="video10" muted playsinline preload="metadata">
+        <source src="video10.mp4" type="video/mp4">
     </video>
 
     <div class="background-overlay"></div>
@@ -307,419 +512,482 @@ html,body{
 
 <div class="page">
 
-    <header class="header">
-        <h1>Mr. Royal Mosquito Screens</h1>
-        <p>Udumalpet</p>
-    </header>
+<header class="header">
+    <h1>Mr. Royal Mosquito Screens</h1>
+    <p>Udumalpet</p>
+</header>
 
-    <main class="content">
+<main class="content">
 
-        <!-- CONTACT -->
-        <h2 class="contact-title">Contact</h2>
+    <!-- CONTACT -->
+    <h2 class="section-title">Contact</h2>
 
-        <div class="contact-grid">
+    <div class="contact-grid">
 
-            <div class="contact-card">
-                <h2>WhatsApp</h2>
-                <a href="https://wa.me/918344640555" target="_blank">
-                    +91 83 44 640555
-                </a>
-            </div>
-
-            <div class="contact-card">
-                <h2>Call</h2>
-                <a href="tel:+918344640555">
-                    +91 83 44 640555
-                </a>
-            </div>
-
-            <div class="contact-card">
-                <h2>Email</h2>
-                <a href="mailto:riazudeen2021@gmail.com">
-                    riazudeen2021@gmail.com
-                </a>
-            </div>
-
+        <div class="contact-card">
+            <h2>WhatsApp</h2>
+            <a href="https://wa.me/918344640555" target="_blank" rel="noopener noreferrer">
+                +91 83 44 640555
+            </a>
         </div>
 
-
-        <!-- =====================================================
-             LINKS - ADDED FROM YOUR IMAGE
-             ===================================================== -->
-
-        <section class="links-section">
-
-            <h2 class="links-title">Links</h2>
-
-            <div class="links-list">
-
-                <!-- GOOGLE -->
-                <a class="link-item"
-                   href="https://g.co/kgs/3gouJWr"
-                   target="_blank"
-                   rel="noopener noreferrer">
-
-                    <div class="link-icon">🔗</div>
-
-                    <div class="link-text">
-                        <h3>Google</h3>
-                        <span>g.co/kgs/3gouJWr</span>
-                    </div>
-
-                </a>
-
-
-                <!-- LOCATION -->
-                <a class="link-item"
-                   href="https://maps.app.goo.gl/op9insNVTGua6NXu7"
-                   target="_blank"
-                   rel="noopener noreferrer">
-
-                    <div class="link-icon">📍</div>
-
-                    <div class="link-text">
-                        <h3>Location</h3>
-                        <span>maps.app.goo.gl/op9insNVTGua6NXu7</span>
-                    </div>
-
-                </a>
-
-
-                <!-- WHATSAPP -->
-                <a class="link-item"
-                   href="https://wa.me/message/6VCHKPQ65NKSF1"
-                   target="_blank"
-                   rel="noopener noreferrer">
-
-                    <div class="link-icon">🔗</div>
-
-                    <div class="link-text">
-                        <h3>WhatsApp</h3>
-                        <span>wa.me/message/6VCHKPQ65NKSF1</span>
-                    </div>
-
-                </a>
-
-            </div>
-        </section>
-
-
-        <!-- FAQ -->
-        <h2 class="faq-title">Frequently Asked Questions</h2>
-
-
-        <div class="faq-category">📐 Size &amp; Fit</div>
-
-        <details class="faq">
-            <summary>How do I measure my bed or window for a mosquito net?</summary>
-            <div class="answer">
-                Measure the complete width, height and length of the area where
-                the mosquito screen will be installed. For custom-size screens,
-                send the measurements to us before ordering.
-            </div>
-        </details>
-
-        <details class="faq">
-            <summary>Do you have nets that fit king-size or super-king beds?</summary>
-            <div class="answer">
-                Yes. Size options can be selected based on your bed dimensions.
-                Custom sizes can also be discussed.
-            </div>
-        </details>
-
-        <details class="faq">
-            <summary>Can these nets be used on bunk beds or baby cribs?</summary>
-            <div class="answer">
-                The suitable design depends on the exact size and installation
-                location. Please provide the dimensions before purchase.
-            </div>
-        </details>
-
-        <details class="faq">
-            <summary>Do you offer custom-size nets for non-standard window frames?</summary>
-            <div class="answer">
-                Yes. Custom-size window mosquito screens can be made according
-                to the required measurements.
-            </div>
-        </details>
-
-
-        <div class="faq-category">🛠️ Installation &amp; Setup</div>
-
-        <details class="faq">
-            <summary>Do I need to drill holes in the wall or ceiling?</summary>
-            <div class="answer">
-                Installation requirements depend on the type of mosquito screen.
-                Some designs require fixing to the frame or wall, while other
-                designs can be installed without permanent drilling.
-            </div>
-        </details>
-
-        <details class="faq">
-            <summary>Does the bed net come with a standing frame?</summary>
-            <div class="answer">
-                This depends on the selected model. Please contact us with your
-                required bed size and installation type.
-            </div>
-        </details>
-
-        <details class="faq">
-            <summary>How do magnetic window mosquito nets attach to the frame?</summary>
-            <div class="answer">
-                Magnetic screens generally use magnetic strips or magnetic
-                closures around the opening so the screen can be opened and
-                closed conveniently.
-            </div>
-        </details>
-
-        <details class="faq">
-            <summary>Is it easy to take the net down?</summary>
-            <div class="answer">
-                Many removable mosquito-screen designs can be taken down when
-                required. The exact method depends on the installation type.
-            </div>
-        </details>
-
-
-        <div class="faq-category">🧵 Material &amp; Quality</div>
-
-        <details class="faq">
-            <summary>What material are the nets made from?</summary>
-            <div class="answer">
-                Available material can vary by product. Please contact Mr. Royal
-                Mosquito Screens for the material options available.
-            </div>
-        </details>
-
-        <details class="faq">
-            <summary>Are the nets treated with chemical insecticides?</summary>
-            <div class="answer">
-                Treatment depends on the particular product. Please confirm the
-                specification of the selected screen before purchase.
-            </div>
-        </details>
-
-        <details class="faq">
-            <summary>How small is the mesh size?</summary>
-            <div class="answer">
-                Mesh size depends on the selected product. Contact us for the
-                exact mesh specification.
-            </div>
-        </details>
-
-        <details class="faq">
-            <summary>Is the fabric durable enough for homes with pets?</summary>
-            <div class="answer">
-                Durability depends on the selected mesh and frame. Please ask us
-                for a suitable option if you have cats, dogs or other pets.
-            </div>
-        </details>
-
-
-        <div class="faq-category">🧺 Maintenance &amp; Care</div>
-
-        <details class="faq">
-            <summary>Can I wash the mosquito net in a washing machine?</summary>
-            <div class="answer">
-                Cleaning instructions depend on the material. Check the
-                product-specific care instructions before machine washing.
-            </div>
-        </details>
-
-        <details class="faq">
-            <summary>How should I clean a magnetic or roller window screen?</summary>
-            <div class="answer">
-                Gently remove dust using a soft brush or vacuum attachment.
-                Follow the care instructions for the particular screen.
-            </div>
-        </details>
-
-        <details class="faq">
-            <summary>Can I iron the net if it gets wrinkled?</summary>
-            <div class="answer">
-                Avoid high heat directly on the net unless the material is
-                specifically confirmed to be safe for ironing.
-            </div>
-        </details>
-
-        <details class="faq">
-            <summary>What is the best way to store the net?</summary>
-            <div class="answer">
-                Clean and completely dry the net before storing it. Keep it
-                folded or rolled in a dry place away from moisture and sharp
-                objects.
-            </div>
-        </details>
-
-
-        <div class="faq-category">🚪 Types &amp; Functionality</div>
-
-        <details class="faq">
-            <summary>Do you have pop-up mosquito nets?</summary>
-            <div class="answer">
-                Product availability depends on the current range. Contact us
-                to check available pop-up or removable models.
-            </div>
-        </details>
-
-        <details class="faq">
-            <summary>Can mosquito nets be used outdoors?</summary>
-            <div class="answer">
-                Some mosquito-screen products can be used outdoors. Suitability
-                depends on the product, installation and weather exposure.
-            </div>
-        </details>
-
-        <details class="faq">
-            <summary>How does the opening and closure work?</summary>
-            <div class="answer">
-                Depending on the design, opening and closure may use zippers,
-                magnets, overlapping mesh or other fixing methods.
-            </div>
-        </details>
-
-        <details class="faq">
-            <summary>Do window nets block fresh air or the outside view?</summary>
-            <div class="answer">
-                Mosquito screens are designed to allow ventilation while helping
-                keep insects outside. Visibility and airflow depend on the mesh
-                design.
-            </div>
-        </details>
-
-
-        <div class="faq-category">📦 Shipping, Returns &amp; Warranty</div>
-
-        <details class="faq">
-            <summary>What is the return policy if the net doesn't fit?</summary>
-            <div class="answer">
-                Please confirm measurements before ordering. For custom-size
-                products, return conditions may differ. Contact us before
-                placing your order for the applicable policy.
-            </div>
-        </details>
-
-        <details class="faq">
-            <summary>Do products come with a warranty?</summary>
-            <div class="answer">
-                Warranty availability depends on the product. Please confirm
-                the applicable warranty terms before purchase.
-            </div>
-        </details>
-
-        <details class="faq">
-            <summary>How long does shipping take?</summary>
-            <div class="answer">
-                Delivery time depends on product availability, customization
-                and delivery location. Contact us for the current estimate.
-            </div>
-        </details>
-
-
-        <div class="media-note">
-            📷 <strong>Product Photos &amp; Videos</strong><br><br>
-            The background automatically displays all 10 photos and videos.
-            Keep the media files in the same folder as this HTML file.
+        <div class="contact-card">
+            <h2>Call</h2>
+            <a href="tel:+918344640555">
+                +91 83 44 640555
+            </a>
         </div>
 
-    </main>
+        <div class="contact-card">
+            <h2>Email</h2>
+            <a href="mailto:riazudeen2021@gmail.com">
+                riazudeen2021@gmail.com
+            </a>
+        </div>
 
-    <footer class="footer">
-        © 2026 Mr. Royal Mosquito Screens - Udumalpet
-    </footer>
+    </div>
+
+    <!-- LINKS -->
+    <section class="links-section">
+
+        <h2 class="section-title">Links</h2>
+
+        <div class="links-list">
+
+            <a class="link-item"
+               href="https://g.co/kgs/3gouJWr"
+               target="_blank"
+               rel="noopener noreferrer">
+
+                <div class="link-icon">🔗</div>
+
+                <div class="link-text">
+                    <h3>Google</h3>
+                    <span>g.co/kgs/3gouJWr</span>
+                </div>
+
+            </a>
+
+            <a class="link-item"
+               href="https://maps.app.goo.gl/op9insNVTGua6NXu7"
+               target="_blank"
+               rel="noopener noreferrer">
+
+                <div class="link-icon">📍</div>
+
+                <div class="link-text">
+                    <h3>Location</h3>
+                    <span>maps.app.goo.gl/op9insNVTGua6NXu7</span>
+                </div>
+
+            </a>
+
+            <a class="link-item"
+               href="https://wa.me/message/6VCHKPQ65NKSF1"
+               target="_blank"
+               rel="noopener noreferrer">
+
+                <div class="link-icon">💬</div>
+
+                <div class="link-text">
+                    <h3>WhatsApp Message</h3>
+                    <span>wa.me/message/6VCHKPQ65NKSF1</span>
+                </div>
+
+            </a>
+
+        </div>
+    </section>
+
+    <!-- QUICK SERVICES TABLE -->
+    <section class="services-section">
+
+        <h2 class="section-title">Our Services</h2>
+
+        <div class="table-wrap">
+            <table class="services-table">
+
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Suitable For</th>
+                        <th>Custom Size</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>🪟 Window Mosquito Screens</td>
+                        <td>Homes, Offices, Apartments</td>
+                        <td>Yes</td>
+                    </tr>
+
+                    <tr>
+                        <td>🛏️ Bed Mosquito Nets</td>
+                        <td>Single, Double, King &amp; Super King</td>
+                        <td>Yes</td>
+                    </tr>
+
+                    <tr>
+                        <td>🧲 Magnetic Screens</td>
+                        <td>Windows &amp; Doors</td>
+                        <td>Yes</td>
+                    </tr>
+
+                    <tr>
+                        <td>🚪 Door Mosquito Screens</td>
+                        <td>Home &amp; Commercial Use</td>
+                        <td>Yes</td>
+                    </tr>
+
+                    <tr>
+                        <td>🔧 Custom Installation</td>
+                        <td>Non-standard Frames</td>
+                        <td>Yes</td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+    </section>
+
+    <!-- FAQ -->
+    <h2 class="faq-title">Frequently Asked Questions</h2>
+
+    <div class="faq-category">📐 Size &amp; Fit</div>
+
+    <details class="faq">
+        <summary>How do I measure my bed or window for a mosquito net?</summary>
+        <div class="answer">
+            Measure the complete width, height and length of the area where
+            the mosquito screen will be installed. For custom-size screens,
+            send the measurements to us before ordering.
+        </div>
+    </details>
+
+    <details class="faq">
+        <summary>Do you have nets that fit king-size or super-king beds?</summary>
+        <div class="answer">
+            Yes. Size options can be selected based on your bed dimensions.
+            Custom sizes can also be discussed.
+        </div>
+    </details>
+
+    <details class="faq">
+        <summary>Can these nets be used on bunk beds or baby cribs?</summary>
+        <div class="answer">
+            The suitable design depends on the exact size and installation
+            location. Please provide the dimensions before purchase.
+        </div>
+    </details>
+
+    <details class="faq">
+        <summary>Do you offer custom-size nets for non-standard window frames?</summary>
+        <div class="answer">
+            Yes. Custom-size window mosquito screens can be made according
+            to the required measurements.
+        </div>
+    </details>
+
+    <div class="faq-category">🛠️ Installation &amp; Setup</div>
+
+    <details class="faq">
+        <summary>Do I need to drill holes in the wall or ceiling?</summary>
+        <div class="answer">
+            Installation requirements depend on the type of mosquito screen.
+            Some designs require fixing to the frame or wall, while other
+            designs can be installed without permanent drilling.
+        </div>
+    </details>
+
+    <details class="faq">
+        <summary>Does the bed net come with a standing frame?</summary>
+        <div class="answer">
+            This depends on the selected model. Please contact us with your
+            required bed size and installation type.
+        </div>
+    </details>
+
+    <details class="faq">
+        <summary>How do magnetic window mosquito nets attach to the frame?</summary>
+        <div class="answer">
+            Magnetic screens generally use magnetic strips or magnetic
+            closures around the opening so the screen can be opened and
+            closed conveniently.
+        </div>
+    </details>
+
+    <details class="faq">
+        <summary>Is it easy to take the net down?</summary>
+        <div class="answer">
+            Many removable mosquito-screen designs can be taken down when
+            required. The exact method depends on the installation type.
+        </div>
+    </details>
+
+    <div class="faq-category">🧵 Material &amp; Quality</div>
+
+    <details class="faq">
+        <summary>What material are the nets made from?</summary>
+        <div class="answer">
+            Available material can vary by product. Please contact Mr. Royal
+            Mosquito Screens for the material options available.
+        </div>
+    </details>
+
+    <details class="faq">
+        <summary>Are the nets treated with chemical insecticides?</summary>
+        <div class="answer">
+            Treatment depends on the particular product. Please confirm the
+            specification of the selected screen before purchase.
+        </div>
+    </details>
+
+    <details class="faq">
+        <summary>How small is the mesh size?</summary>
+        <div class="answer">
+            Mesh size depends on the selected product. Contact us for the
+            exact mesh specification.
+        </div>
+    </details>
+
+    <details class="faq">
+        <summary>Is the fabric durable enough for homes with pets?</summary>
+        <div class="answer">
+            Durability depends on the selected mesh and frame. Please ask us
+            for a suitable option if you have cats, dogs or other pets.
+        </div>
+    </details>
+
+    <div class="faq-category">🧺 Maintenance &amp; Care</div>
+
+    <details class="faq">
+        <summary>Can I wash the mosquito net in a washing machine?</summary>
+        <div class="answer">
+            Cleaning instructions depend on the material. Check the
+            product-specific care instructions before machine washing.
+        </div>
+    </details>
+
+    <details class="faq">
+        <summary>How should I clean a magnetic or roller window screen?</summary>
+        <div class="answer">
+            Gently remove dust using a soft brush or vacuum attachment.
+            Follow the care instructions for the particular screen.
+        </div>
+    </details>
+
+    <details class="faq">
+        <summary>Can I iron the net if it gets wrinkled?</summary>
+        <div class="answer">
+            Avoid high heat directly on the net unless the material is
+            specifically confirmed to be safe for ironing.
+        </div>
+    </details>
+
+    <details class="faq">
+        <summary>What is the best way to store the net?</summary>
+        <div class="answer">
+            Clean and completely dry the net before storing it. Keep it
+            folded or rolled in a dry place away from moisture and sharp
+            objects.
+        </div>
+    </details>
+
+    <div class="faq-category">🚪 Types &amp; Functionality</div>
+
+    <details class="faq">
+        <summary>Do you have pop-up mosquito nets?</summary>
+        <div class="answer">
+            Product availability depends on the current range. Contact us
+            to check available pop-up or removable models.
+        </div>
+    </details>
+
+    <details class="faq">
+        <summary>Can mosquito nets be used outdoors?</summary>
+        <div class="answer">
+            Some mosquito-screen products can be used outdoors. Suitability
+            depends on the product, installation and weather exposure.
+        </div>
+    </details>
+
+    <details class="faq">
+        <summary>How does the opening and closure work?</summary>
+        <div class="answer">
+            Depending on the design, opening and closure may use zippers,
+            magnets, overlapping mesh or other fixing methods.
+        </div>
+    </details>
+
+    <details class="faq">
+        <summary>Do window nets block fresh air or the outside view?</summary>
+        <div class="answer">
+            Mosquito screens are designed to allow ventilation while helping
+            keep insects outside. Visibility and airflow depend on the mesh
+            design.
+        </div>
+    </details>
+
+    <div class="faq-category">📦 Shipping, Returns &amp; Warranty</div>
+
+    <details class="faq">
+        <summary>What is the return policy if the net doesn't fit?</summary>
+        <div class="answer">
+            Please confirm measurements before ordering. For custom-size
+            products, return conditions may differ. Contact us before
+            placing an order for the applicable policy.
+        </div>
+    </details>
+
+    <details class="faq">
+        <summary>Do products come with a warranty?</summary>
+        <div class="answer">
+            Warranty availability depends on the product. Please confirm
+            the applicable warranty terms before purchase.
+        </div>
+    </details>
+
+    <details class="faq">
+        <summary>How long does shipping take?</summary>
+        <div class="answer">
+            Delivery time depends on product availability, customization
+            and delivery location. Contact us for the current estimate.
+        </div>
+    </details>
+
+    <div class="video-status">
+        🎥 <strong>Background Video Gallery</strong><br>
+        10 videos are available. The website randomly selects videos and
+        displays them full-screen behind the page.
+    </div>
+
+</main>
+
+<footer class="footer">
+    © 2026 Mr. Royal Mosquito Screens - Udumalpet
+</footer>
 
 </div>
 
-
 <script>
 /* =========================================================
-   BACKGROUND SLIDESHOW
-   10 PHOTOS + 2 VIDEOS
+   RANDOM 10-VIDEO BACKGROUND SYSTEM
+
+   Features:
+   - Full-screen video
+   - Random order
+   - Does not immediately repeat the same video
+   - Automatically moves to another video when one ends
+   - Works on desktop and mobile
+   - Skips a video if its file is missing
    ========================================================= */
 
-const photos = Array.from(document.querySelectorAll(".bg-photo"));
-const videos = Array.from(document.querySelectorAll(".bg-video"));
+const videos = Array.from(
+    document.querySelectorAll(".bg-video")
+);
 
-const mediaItems = [...photos, ...videos];
-
-let currentIndex = 0;
+let currentVideoIndex = -1;
 let timer = null;
 
+/* Create a random index that is different from current */
+function getRandomIndex(){
 
-function hideAllMedia(){
+    if(videos.length <= 1){
+        return 0;
+    }
 
-    photos.forEach(photo => {
-        photo.classList.remove("active");
-    });
+    let newIndex;
+
+    do{
+        newIndex = Math.floor(Math.random() * videos.length);
+    }
+    while(newIndex === currentVideoIndex);
+
+    return newIndex;
+}
+
+/* Hide every video */
+function hideAllVideos(){
 
     videos.forEach(video => {
+
         video.classList.remove("active");
 
         try{
             video.pause();
             video.currentTime = 0;
         }catch(error){}
+
     });
 }
 
+/* Show and play one random video */
+function showRandomVideo(){
 
-function showMedia(index){
+    clearTimeout(timer);
 
-    if(!mediaItems.length) return;
-
-    currentIndex = index % mediaItems.length;
-
-    hideAllMedia();
-
-    const media = mediaItems[currentIndex];
-
-    media.classList.add("active");
-
-
-    /* PHOTO */
-    if(media.tagName.toLowerCase() === "img"){
-
-        clearTimeout(timer);
-
-        timer = setTimeout(() => {
-            showMedia(currentIndex + 1);
-        },5000);
+    if(!videos.length){
+        return;
     }
 
+    const nextIndex = getRandomIndex();
+    currentVideoIndex = nextIndex;
 
-    /* VIDEO */
-    if(media.tagName.toLowerCase() === "video"){
+    hideAllVideos();
 
-        clearTimeout(timer);
+    const video = videos[nextIndex];
 
-        media.muted = true;
-        media.playsInline = true;
+    video.classList.add("active");
+    video.muted = true;
+    video.playsInline = true;
 
-        const playPromise = media.play();
+    /* When video ends, choose another random video */
+    video.onended = function(){
+        showRandomVideo();
+    };
 
-        if(playPromise !== undefined){
-            playPromise.catch(() => {});
-        }
+    /* If video has an error, try another one */
+    video.onerror = function(){
 
-        media.onended = () => {
-            showMedia(currentIndex + 1);
-        };
+        console.warn(
+            "Video could not be loaded:",
+            video.querySelector("source")?.src
+        );
 
-        media.onerror = () => {
-            setTimeout(() => {
-                showMedia(currentIndex + 1);
-            },1000);
-        };
+        video.classList.remove("active");
+
+        timer = setTimeout(() => {
+            if(videos.length > 1){
+                showRandomVideo();
+            }
+        },800);
+    };
+
+    const playPromise = video.play();
+
+    if(playPromise !== undefined){
+
+        playPromise.catch(() => {
+
+            /*
+             Some mobile browsers require a user interaction
+             before video playback. The touch/click handlers
+             below will try again.
+            */
+
+        });
+
     }
 }
 
+/* Start */
+showRandomVideo();
 
-/* Start slideshow */
-showMedia(0);
-
-
-/* Help mobile browsers start the video after first touch */
-document.addEventListener("touchstart",() => {
+/* Help mobile browsers start/restart the background video
+   after the user's first interaction. */
+function resumeBackgroundVideo(){
 
     const activeVideo =
         document.querySelector(".bg-video.active");
@@ -727,44 +995,43 @@ document.addEventListener("touchstart",() => {
     if(activeVideo){
 
         activeVideo.muted = true;
+        activeVideo.playsInline = true;
 
         const p = activeVideo.play();
 
         if(p !== undefined){
             p.catch(() => {});
         }
+
+    }else{
+        showRandomVideo();
     }
+}
 
-},{once:true});
+document.addEventListener(
+    "touchstart",
+    resumeBackgroundVideo,
+    {passive:true}
+);
 
+document.addEventListener(
+    "click",
+    resumeBackgroundVideo,
+    {passive:true}
+);
 
-/* Preload all photos */
-photos.forEach(photo => {
+/* When the browser tab becomes visible again,
+   resume the current video. */
+document.addEventListener(
+    "visibilitychange",
+    function(){
 
-    const image = new Image();
-
-    image.src = photo.src;
-
-});
-
-
-/* Skip missing photos */
-photos.forEach((photo,index) => {
-
-    photo.addEventListener("error",() => {
-
-        console.warn(
-            "Photo not found:",
-            photo.getAttribute("src")
-        );
-
-        if(index === currentIndex){
-            showMedia(currentIndex + 1);
+        if(!document.hidden){
+            resumeBackgroundVideo();
         }
 
-    });
-
-});
+    }
+);
 </script>
 
 </body>
