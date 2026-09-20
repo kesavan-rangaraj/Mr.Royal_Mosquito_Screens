@@ -499,6 +499,160 @@ body{
     }
 }
 
+
+/* =========================================================
+   SIDE IMAGE + VIDEO BOXES
+   Desktop: left and right of the existing center page.
+   Mobile: placed below the main content.
+   ========================================================= */
+
+.media-side{
+    position:fixed;
+    top:52px;
+    width:24vw;
+    max-width:420px;
+    min-width:250px;
+    height:calc(100vh - 105px);
+    z-index:2;
+    pointer-events:none;
+}
+
+.media-side.left{
+    left:14px;
+}
+
+.media-side.right{
+    right:14px;
+}
+
+.media-box{
+    position:relative;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    border:2px solid rgba(255,255,255,.72);
+    border-radius:28px;
+    background:rgba(235,243,247,.18);
+    box-shadow:0 15px 45px rgba(40,60,75,.20);
+    backdrop-filter:blur(3px);
+    -webkit-backdrop-filter:blur(3px);
+}
+
+.media-box::before{
+    content:"";
+    position:absolute;
+    inset:9%;
+    border:8px solid #e5f000;
+    border-radius:50%;
+    z-index:4;
+    pointer-events:none;
+    opacity:.90;
+    transform:rotate(-8deg);
+}
+
+.media-box::after{
+    content:"";
+    position:absolute;
+    inset:13%;
+    border:3px solid rgba(229,240,0,.82);
+    border-radius:50%;
+    z-index:4;
+    pointer-events:none;
+    transform:rotate(7deg);
+}
+
+.side-media{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center;
+    opacity:0;
+    transition:opacity .8s ease;
+}
+
+.side-media.active{
+    opacity:1;
+}
+
+.media-caption{
+    position:absolute;
+    left:50%;
+    bottom:18px;
+    transform:translateX(-50%);
+    z-index:6;
+    width:calc(100% - 32px);
+    padding:9px 12px;
+    text-align:center;
+    border-radius:12px;
+    background:rgba(255,255,255,.70);
+    border:1px solid rgba(255,255,255,.85);
+    color:#17324d;
+    font-weight:700;
+    font-size:14px;
+    box-shadow:0 4px 14px rgba(0,0,0,.16);
+}
+
+@media(max-width:1100px){
+    .media-side{
+        width:21vw;
+        min-width:190px;
+    }
+
+    .media-box::before{
+        border-width:6px;
+    }
+}
+
+@media(max-width:800px){
+    .media-side{
+        position:relative;
+        top:auto;
+        left:auto !important;
+        right:auto !important;
+        width:calc(100% - 20px);
+        max-width:none;
+        min-width:0;
+        height:300px;
+        margin:16px auto;
+    }
+
+    .media-side.left{
+        order:1;
+    }
+
+    .media-side.right{
+        order:3;
+    }
+
+    .page{
+        display:flex;
+        flex-direction:column;
+    }
+
+    .header{
+        order:0;
+    }
+
+    .content{
+        order:2;
+    }
+
+    .footer{
+        order:4;
+    }
+
+    .media-box::before{
+        inset:16%;
+        border-width:6px;
+    }
+
+    .media-box::after{
+        inset:20%;
+    }
+}
+
 </style>
 </head>
 
@@ -571,6 +725,29 @@ body{
     <div class="background-overlay"></div>
 </div>
 </div>
+
+
+<!-- LEFT IMAGE + VIDEO BOX -->
+<aside class="media-side left" aria-label="Left image and video gallery">
+    <div class="media-box">
+        <img class="side-media" src="photo1.jpg" alt="Mosquito Screen Image">
+        <video class="side-media" muted playsinline preload="metadata">
+            <source src="video1.mp4" type="video/mp4">
+        </video>
+        <div class="media-caption">🖼️ Image &nbsp; • &nbsp; 🎥 Video</div>
+    </div>
+</aside>
+
+<!-- RIGHT IMAGE + VIDEO BOX -->
+<aside class="media-side right" aria-label="Right image and video gallery">
+    <div class="media-box">
+        <img class="side-media" src="photo2.jpg" alt="Mosquito Screen Image">
+        <video class="side-media" muted playsinline preload="metadata">
+            <source src="video2.mp4" type="video/mp4">
+        </video>
+        <div class="media-caption">🖼️ Image &nbsp; • &nbsp; 🎥 Video</div>
+    </div>
+</aside>
 
 <div class="page">
 
@@ -1132,5 +1309,74 @@ backToTop.addEventListener("click", function(){
     window.scrollTo({top:0, behavior:"smooth"});
 });
 </script>
+
+<script>
+/* =========================================================
+   SIDE BOX IMAGE + VIDEO GALLERY
+   Uses the existing photo/video files.
+   ========================================================= */
+
+(function(){
+    const boxes = document.querySelectorAll(".media-box");
+
+    boxes.forEach((box, boxNumber) => {
+        const media = box.querySelectorAll(".side-media");
+        let current = -1;
+        let timer = null;
+
+        function hideAll(){
+            media.forEach(item => {
+                item.classList.remove("active");
+
+                if(item.tagName.toLowerCase() === "video"){
+                    item.pause();
+                    item.currentTime = 0;
+                }
+            });
+        }
+
+        function showNext(){
+            clearTimeout(timer);
+
+            if(!media.length) return;
+
+            current = (current + 1) % media.length;
+            hideAll();
+
+            const item = media[current];
+            item.classList.add("active");
+
+            if(item.tagName.toLowerCase() === "img"){
+                timer = setTimeout(showNext, 5000);
+            }else{
+                item.muted = true;
+                item.playsInline = true;
+
+                item.onended = showNext;
+
+                const p = item.play();
+                if(p !== undefined){
+                    p.catch(() => {
+                        timer = setTimeout(showNext, 5000);
+                    });
+                }
+            }
+        }
+
+        /* Start with image, then video. */
+        showNext();
+
+        box.addEventListener("click", function(){
+            const active = box.querySelector(".side-media.active");
+
+            if(active && active.tagName.toLowerCase() === "video"){
+                active.muted = true;
+                active.play().catch(() => {});
+            }
+        });
+    });
+})();
+</script>
+
 </body>
 </html>
