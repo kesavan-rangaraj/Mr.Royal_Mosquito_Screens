@@ -12,27 +12,22 @@
     padding:0;
 }
 
-html{
-    scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth;}
 
 body{
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:Arial,Helvetica,sans-serif;
     background:#07131a;
     color:#fff;
     min-height:100vh;
     overflow-x:hidden;
 }
 
-/* =========================
-   BACKGROUND
-   ========================= */
 .page{
     min-height:100vh;
     position:relative;
     background:
-        radial-gradient(circle at 15% 20%, rgba(28,75,105,.55), transparent 30%),
-        radial-gradient(circle at 85% 35%, rgba(73,65,30,.45), transparent 32%),
+        radial-gradient(circle at 15% 20%,rgba(28,75,105,.55),transparent 30%),
+        radial-gradient(circle at 85% 35%,rgba(73,65,30,.45),transparent 32%),
         linear-gradient(135deg,#061018,#0b202b 45%,#050d13);
 }
 
@@ -47,9 +42,7 @@ body{
         linear-gradient(25deg,transparent 55%,rgba(0,180,255,.035) 56%,transparent 58%);
 }
 
-/* =========================
-   TOP NAVIGATION
-   ========================= */
+/* NAVIGATION */
 .navbar{
     height:56px;
     padding:0 28px;
@@ -66,27 +59,21 @@ body{
 .logo{
     font-size:20px;
     font-weight:900;
-    letter-spacing:-1px;
 }
 
-.nav-left,
-.nav-right{
+.nav-left,.nav-right{
     display:flex;
     align-items:center;
     gap:22px;
 }
 
-.nav-left a,
-.nav-right a{
+.nav-left a,.nav-right a{
     color:#ddd;
     text-decoration:none;
     font-size:12px;
 }
 
-.nav-left a:hover,
-.nav-right a:hover{
-    color:#fff;
-}
+.nav-left a:hover,.nav-right a:hover{color:#fff;}
 
 .nominee-btn{
     border:1px solid rgba(255,255,255,.35);
@@ -94,9 +81,7 @@ body{
     padding:8px 12px;
 }
 
-/* =========================
-   MAIN
-   ========================= */
+/* MAIN */
 .main{
     width:min(1080px,94%);
     margin:auto;
@@ -104,13 +89,10 @@ body{
     z-index:2;
 }
 
-/* =========================
-   GREEN AREA - TITLE
-   ========================= */
+/* TITLE - NO POPUP */
 .hero{
     text-align:center;
     padding:35px 15px 42px;
-    position:relative;
 }
 
 .hero-title{
@@ -120,51 +102,12 @@ body{
     font-weight:900;
     letter-spacing:-4px;
     color:#f7f7f7;
-    cursor:pointer;
-    position:relative;
     transition:transform .25s ease,text-shadow .25s ease;
 }
 
 .hero-title:hover{
     transform:scale(1.025);
     text-shadow:0 0 25px rgba(255,255,255,.35);
-}
-
-/* green-highlight hover popup */
-.hero-popup{
-    position:absolute;
-    left:50%;
-    top:112px;
-    transform:translateX(-50%) translateY(8px);
-    width:min(430px,90vw);
-    padding:18px 20px;
-    border-radius:14px;
-    background:rgba(8,18,24,.96);
-    border:1px solid #39ff14;
-    box-shadow:0 0 25px rgba(57,255,20,.22);
-    opacity:0;
-    visibility:hidden;
-    pointer-events:none;
-    transition:.25s ease;
-    z-index:30;
-}
-
-.hero:hover .hero-popup{
-    opacity:1;
-    visibility:visible;
-    transform:translateX(-50%) translateY(0);
-}
-
-.hero-popup h3{
-    color:#39ff14;
-    margin-bottom:8px;
-    font-size:18px;
-}
-
-.hero-popup p{
-    color:#ddd;
-    font-size:14px;
-    line-height:1.55;
 }
 
 .hero-subtitle{
@@ -174,9 +117,7 @@ body{
     line-height:1.35;
 }
 
-/* =========================
-   VIDEO CARDS
-   ========================= */
+/* THREE VIDEO BOXES */
 .video-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -210,7 +151,6 @@ body{
     background:#101820;
 }
 
-/* dark overlay */
 .video-card:after{
     content:"";
     position:absolute;
@@ -237,9 +177,7 @@ body{
     font-size:13px;
 }
 
-/* =========================
-   BLUE INFORMATION AREA
-   ========================= */
+/* BLUE INFORMATION AREA - NO POPUP */
 .footer-area{
     position:relative;
     margin:0 0 20px;
@@ -249,45 +187,9 @@ body{
     backdrop-filter:blur(12px);
 }
 
-/* blue-area hover popup */
-.footer-hover-popup{
-    position:absolute;
-    left:50%;
-    top:-68px;
-    transform:translateX(-50%) translateY(10px);
-    width:min(560px,90%);
-    padding:15px 18px;
-    border-radius:12px;
-    background:rgba(5,14,20,.98);
-    border:1px solid #2589ff;
-    box-shadow:0 0 28px rgba(37,137,255,.25);
-    opacity:0;
-    visibility:hidden;
-    pointer-events:none;
-    transition:.25s ease;
-    z-index:50;
-    text-align:center;
-}
-
-.footer-area:hover .footer-hover-popup{
-    opacity:1;
-    visibility:visible;
-    transform:translateX(-50%) translateY(0);
-}
-
-.footer-hover-popup strong{
-    color:#5eb0ff;
-}
-
-.footer-hover-popup p{
-    margin-top:5px;
-    color:#ddd;
-    font-size:13px;
-}
-
 .footer-grid{
     display:grid;
-    grid-template-columns:1fr 1fr 1fr 1.35fr;
+    grid-template-columns:1fr 1fr 1.55fr 1fr;
     gap:25px;
 }
 
@@ -305,9 +207,7 @@ body{
     line-height:1.8;
 }
 
-.footer-column ul{
-    list-style:none;
-}
+.footer-column ul{list-style:none;}
 
 .footer-column a{
     text-decoration:none;
@@ -319,22 +219,26 @@ body{
     text-decoration:underline;
 }
 
-/* Contact links */
+/* CONTACT */
 .contact-link{
     display:block;
     padding:3px 0;
 }
 
+/* SERVICES TABLE */
+.service-area{
+    position:relative;
+}
+
 .services{
-    margin-top:18px;
     width:100%;
     border-collapse:collapse;
 }
 
 .services th,
 .services td{
-    border:1px solid rgba(255,255,255,.13);
-    padding:7px;
+    border:1px solid rgba(255,255,255,.15);
+    padding:8px 7px;
     text-align:left;
     font-size:10px;
 }
@@ -346,6 +250,50 @@ body{
 
 .services td{
     color:#ccc;
+}
+
+.services tbody tr{
+    cursor:pointer;
+    transition:background .2s ease;
+}
+
+.services tbody tr:hover{
+    background:rgba(70,150,255,.13);
+}
+
+/*
+   ONLY SERVICE TABLE POPUP:
+   This is hidden normally.
+   It appears BELOW the table when the mouse is over
+   a service row. No popup exists for the title or blue footer.
+*/
+.service-hover-info{
+    margin-top:10px;
+    min-height:58px;
+    padding:11px 13px;
+    border-radius:8px;
+    border:1px solid rgba(70,160,255,.45);
+    background:rgba(4,15,23,.94);
+    color:#ddd;
+    font-size:11px;
+    line-height:1.5;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-5px);
+    transition:.2s ease;
+}
+
+.service-hover-info.show{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+}
+
+.service-hover-info strong{
+    color:#66b5ff;
+    display:block;
+    margin-bottom:3px;
+    font-size:12px;
 }
 
 /* FAQ */
@@ -407,84 +355,24 @@ body{
     text-decoration:none;
 }
 
-.bottom-links a:hover{
-    color:#fff;
-}
+.bottom-links a:hover{color:#fff;}
 
 .copyright{
     color:#aaa;
     font-size:10px;
 }
 
-/* =========================
-   CONTACT POPUP
-   ========================= */
-.contact-box{
-    position:relative;
-}
-
-.contact-popup{
-    position:absolute;
-    left:0;
-    top:100%;
-    width:260px;
-    padding:15px;
-    border-radius:10px;
-    background:#071218;
-    border:1px solid #2589ff;
-    box-shadow:0 15px 35px rgba(0,0,0,.55);
-    opacity:0;
-    visibility:hidden;
-    transform:translateY(8px);
-    transition:.2s ease;
-    z-index:80;
-}
-
-.contact-box:hover .contact-popup{
-    opacity:1;
-    visibility:visible;
-    transform:translateY(0);
-}
-
-.contact-popup h4{
-    margin-bottom:8px;
-    color:#fff;
-}
-
-.contact-popup a{
-    display:block;
-    margin:5px 0;
-    color:#8dc8ff;
-    font-size:11px;
-}
-
-/* =========================
-   MOBILE
-   ========================= */
+/* MOBILE */
 @media(max-width:800px){
-    .navbar{
-        padding:0 15px;
-    }
+    .navbar{padding:0 15px;}
 
-    .nav-left{
-        display:none;
-    }
+    .nav-left{display:none;}
 
-    .nav-right{
-        gap:10px;
-    }
+    .nav-right{gap:10px;}
 
-    .hero{
-        padding-top:28px;
-    }
+    .hero{padding-top:28px;}
 
-    .hero-title{
-        letter-spacing:-2px;
-    }
-
-    .hero-popup{
-        top:95px;
-    }
+    .hero-title{letter-spacing:-2px;}
 
     .video-grid{
         grid-template-columns:1fr;
@@ -492,9 +380,7 @@ body{
         padding-right:5px;
     }
 
-    .video-card{
-        height:245px;
-    }
+    .video-card{height:245px;}
 
     .footer-grid{
         grid-template-columns:1fr 1fr;
@@ -506,20 +392,12 @@ body{
         grid-template-columns:1fr;
     }
 
-    .hero-title{
-        font-size:48px;
-    }
+    .hero-title{font-size:48px;}
 
-    .hero-subtitle{
-        font-size:14px;
-    }
+    .hero-subtitle{font-size:14px;}
 
     .footer-area{
         padding:25px 15px 20px;
-    }
-
-    .footer-hover-popup{
-        top:-105px;
     }
 }
 </style>
@@ -529,462 +407,407 @@ body{
 
 <div class="page">
 
-    <!-- TOP NAVIGATION -->
-    <header class="navbar">
-        <div class="nav-left">
-            <div class="logo">W.</div>
-            <a href="#videos">Videos</a>
-            <a href="#contact">Contact</a>
-            <a href="#services">Services</a>
-            <a href="#faq">FAQs</a>
+<header class="navbar">
+    <div class="nav-left">
+        <div class="logo">W.</div>
+        <a href="#videos">Videos</a>
+        <a href="#contact">Contact</a>
+        <a href="#services">Services</a>
+        <a href="#faq">FAQs</a>
+    </div>
+
+    <div class="nav-right">
+        <a href="#contact">Contact</a>
+        <a href="#services">Services</a>
+        <a class="nominee-btn" href="#contact">Contact Us</a>
+    </div>
+</header>
+
+<main class="main">
+
+    <!-- GREEN AREA: NO POPUP -->
+    <section class="hero">
+        <div class="hero-title">
+            Mr. Royal Mosquito Screens Udumalpet
         </div>
 
-        <div class="nav-right">
-            <a href="#contact">Login</a>
-            <a href="#contact">Sign up</a>
-            <a class="nominee-btn" href="#contact">Contact Us</a>
+        <p class="hero-subtitle">
+            Custom mosquito screens • Window & Door Screens • Bed Nets
+        </p>
+    </section>
+
+    <!-- THREE MP4 VIDEOS -->
+    <section id="videos" class="video-grid">
+
+        <article class="video-card">
+            <video src="video1.mp4" muted loop playsinline preload="metadata"></video>
+
+            <div class="video-info">
+                <h2>Window Mosquito Screens</h2>
+                <p>Homes • Offices • Apartments</p>
+            </div>
+        </article>
+
+        <article class="video-card">
+            <video src="video2.mp4" muted loop playsinline preload="metadata"></video>
+
+            <div class="video-info">
+                <h2>Bed Mosquito Nets</h2>
+                <p>Single • Double • King • Super King</p>
+            </div>
+        </article>
+
+        <article class="video-card">
+            <video src="video3.mp4" muted loop playsinline preload="metadata"></video>
+
+            <div class="video-info">
+                <h2>Custom Mosquito Screens</h2>
+                <p>Magnetic • Door • Custom Installation</p>
+            </div>
+        </article>
+
+    </section>
+
+    <!-- BLUE INFORMATION AREA: NO POPUP -->
+    <footer id="contact" class="footer-area">
+
+        <div class="footer-grid">
+
+            <!-- CONTACT -->
+            <div class="footer-column">
+                <h3>Contact</h3>
+
+                <a class="contact-link"
+                   href="https://wa.me/918344640555"
+                   target="_blank">
+                    WhatsApp: +91 83 44 640555
+                </a>
+
+                <a class="contact-link" href="tel:+918344640555">
+                    Call: +91 83 44 640555
+                </a>
+
+                <a class="contact-link"
+                   href="mailto:riazudeen2021@gmail.com">
+                    Email: riazudeen2021@gmail.com
+                </a>
+            </div>
+
+            <!-- LINKS -->
+            <div class="footer-column">
+                <h3>Links</h3>
+
+                <ul>
+                    <li>
+                        <a href="https://g.co/kgs/3gouJWr" target="_blank">
+                            🔗 Google
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://maps.app.goo.gl/op9insNVTGua6NXu7"
+                           target="_blank">
+                            📍 Location
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://wa.me/message/6VCHKPQ65NKSF1"
+                           target="_blank">
+                            💬 WhatsApp Message
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- SERVICES TABLE -->
+            <div id="services" class="footer-column service-area">
+                <h3>Our Services</h3>
+
+                <table class="services">
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Suitable For</th>
+                            <th>Custom</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr data-title="🪟 Window Mosquito Screens"
+                            data-info="Suitable for homes, offices and apartments. Custom-size window mosquito screens are available.">
+                            <td>🪟 Window Mosquito Screens</td>
+                            <td>Homes, Offices, Apartments</td>
+                            <td>Yes</td>
+                        </tr>
+
+                        <tr data-title="🛏️ Bed Mosquito Nets"
+                            data-info="Available for Single, Double, King and Super King beds. Custom sizes can also be discussed.">
+                            <td>🛏️ Bed Mosquito Nets</td>
+                            <td>Single, Double, King & Super King</td>
+                            <td>Yes</td>
+                        </tr>
+
+                        <tr data-title="🧲 Magnetic Screens"
+                            data-info="Magnetic mosquito screens are suitable for windows and doors and are designed for convenient opening and closing.">
+                            <td>🧲 Magnetic Screens</td>
+                            <td>Windows & Doors</td>
+                            <td>Yes</td>
+                        </tr>
+
+                        <tr data-title="🚪 Door Mosquito Screens"
+                            data-info="Door mosquito screens are suitable for home and commercial use. Custom-size options are available.">
+                            <td>🚪 Door Mosquito Screens</td>
+                            <td>Home & Commercial Use</td>
+                            <td>Yes</td>
+                        </tr>
+
+                        <tr data-title="🔧 Custom Installation"
+                            data-info="Custom installation is available for non-standard frames and other special installation requirements.">
+                            <td>🔧 Custom Installation</td>
+                            <td>Non-standard Frames</td>
+                            <td>Yes</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+                <!-- ONLY POPUP ON THIS PAGE -->
+                <div id="serviceHoverInfo" class="service-hover-info">
+                    <strong id="serviceHoverTitle"></strong>
+                    <span id="serviceHoverText"></span>
+                </div>
+            </div>
+
+            <!-- QUICK INFORMATION -->
+            <div class="footer-column">
+                <h3>Quick Information</h3>
+
+                <ul>
+                    <li>📐 Custom Size Available</li>
+                    <li>🪟 Window Screens</li>
+                    <li>🚪 Door Screens</li>
+                    <li>🛏️ Bed Nets</li>
+                    <li>🧲 Magnetic Screens</li>
+                    <li>🔧 Custom Installation</li>
+                </ul>
+            </div>
+
         </div>
-    </header>
 
-    <main class="main">
+        <!-- FAQ -->
+        <section id="faq" class="faq-section">
+            <h2>Frequently Asked Questions</h2>
 
-        <!-- GREEN HIGHLIGHTED TITLE -->
-        <section class="hero">
-            <div class="hero-title">
-                Mr. Royal Mosquito Screens Udumalpet
-
-                <div class="hero-popup">
-                    <h3>Mr. Royal Mosquito Screens - Udumalpet</h3>
-                    <p>
-                        Professional mosquito-screen solutions for windows,
-                        doors, beds and custom-size installations.
-                        Move the mouse over this title to see this information.
-                    </p>
+            <div class="faq">
+                <div class="faq-question">📐 How do I measure my bed or window for a mosquito net?</div>
+                <div class="faq-answer">
+                    Measure the complete width, height and length of the area where the mosquito screen
+                    will be installed. For custom-size screens, send the measurements before ordering.
                 </div>
             </div>
 
-            <p class="hero-subtitle">
-                Custom mosquito screens • Window & Door Screens • Bed Nets
-            </p>
+            <div class="faq">
+                <div class="faq-question">📐 Do you have nets that fit king-size or super-king beds?</div>
+                <div class="faq-answer">
+                    Yes. Size options can be selected based on your bed dimensions. Custom sizes can also be discussed.
+                </div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-question">📐 Can these nets be used on bunk beds or baby cribs?</div>
+                <div class="faq-answer">
+                    The suitable design depends on the exact size and installation location. Please provide the dimensions.
+                </div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-question">📐 Do you offer custom-size nets for non-standard window frames?</div>
+                <div class="faq-answer">
+                    Yes. Custom-size window mosquito screens can be made according to the required measurements.
+                </div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-question">🛠️ Do I need to drill holes in the wall or ceiling?</div>
+                <div class="faq-answer">
+                    Installation requirements depend on the type of mosquito screen. Some designs require fixing
+                    to the frame or wall, while other designs can be installed without permanent drilling.
+                </div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-question">🛠️ Does the bed net come with a standing frame?</div>
+                <div class="faq-answer">
+                    This depends on the selected model. Please contact us with your required bed size and installation type.
+                </div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-question">🛠️ How do magnetic window mosquito nets attach to the frame?</div>
+                <div class="faq-answer">
+                    Magnetic screens generally use magnetic strips or magnetic closures around the opening.
+                </div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-question">🛠️ Is it easy to take the net down?</div>
+                <div class="faq-answer">
+                    Many removable mosquito-screen designs can be taken down when required.
+                </div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-question">🧵 What material are the nets made from?</div>
+                <div class="faq-answer">
+                    Available material can vary by product. Please contact Mr. Royal Mosquito Screens for available options.
+                </div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-question">🧵 Are the nets treated with chemical insecticides?</div>
+                <div class="faq-answer">
+                    Treatment depends on the particular product. Please confirm the specification before purchase.
+                </div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-question">🧵 How small is the mesh size?</div>
+                <div class="faq-answer">
+                    Mesh size depends on the selected product. Contact us for the exact mesh specification.
+                </div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-question">🧵 Is the fabric durable enough for homes with pets?</div>
+                <div class="faq-answer">
+                    Durability depends on the selected mesh and frame. Ask us for a suitable option for pets.
+                </div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-question">🧺 Can I wash the mosquito net in a washing machine?</div>
+                <div class="faq-answer">
+                    Cleaning instructions depend on the material. Check the product-specific care instructions.
+                </div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-question">🧺 How should I clean a magnetic or roller window screen?</div>
+                <div class="faq-answer">
+                    Gently remove dust using a soft brush or vacuum attachment and follow product care instructions.
+                </div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-question">🧺 Can I iron the net if it gets wrinkled?</div>
+                <div class="faq-answer">
+                    Avoid high heat directly on the net unless the material is confirmed safe for ironing.
+                </div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-question">🧺 What is the best way to store the net?</div>
+                <div class="faq-answer">
+                    Clean and completely dry the net before storing it. Keep it folded or rolled in a dry place.
+                </div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-question">🚪 Do you have pop-up mosquito nets?</div>
+                <div class="faq-answer">
+                    Product availability depends on the current range. Contact us to check available models.
+                </div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-question">🚪 Can mosquito nets be used outdoors?</div>
+                <div class="faq-answer">
+                    Some mosquito-screen products can be used outdoors. Suitability depends on product and installation.
+                </div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-question">🚪 How does the opening and closure work?</div>
+                <div class="faq-answer">
+                    Depending on the design, opening and closure may use zippers, magnets, overlapping mesh or other fixing methods.
+                </div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-question">🚪 Do window nets block fresh air or the outside view?</div>
+                <div class="faq-answer">
+                    Mosquito screens are designed to allow ventilation while helping keep insects outside.
+                    Visibility and airflow depend on the mesh design.
+                </div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-question">📦 What is the return policy if the net doesn't fit?</div>
+                <div class="faq-answer">
+                    Please confirm measurements before ordering. For custom-size products, return conditions may differ.
+                </div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-question">📦 Do products come with a warranty?</div>
+                <div class="faq-answer">
+                    Warranty availability depends on the product. Please confirm the applicable warranty terms.
+                </div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-question">📦 How long does shipping take?</div>
+                <div class="faq-answer">
+                    Delivery time depends on product availability, customization and delivery location.
+                </div>
+            </div>
         </section>
 
-        <!-- RED HIGHLIGHTED VIDEO BOXES -->
-        <section id="videos" class="video-grid">
-
-            <article class="video-card">
-                <video
-                    src="video1.mp4"
-                    muted
-                    loop
-                    playsinline
-                    preload="metadata">
-                </video>
-<div class="video-info">
-                    <h2>Window Mosquito Screens</h2>
-                    <p>Homes • Offices • Apartments</p>
-                </div>
-            </article>
-
-            <article class="video-card">
-                <video
-                    src="video2.mp4"
-                    muted
-                    loop
-                    playsinline
-                    preload="metadata">
-                </video>
-<div class="video-info">
-                    <h2>Bed Mosquito Nets</h2>
-                    <p>Single • Double • King • Super King</p>
-                </div>
-            </article>
-
-            <article class="video-card">
-                <video
-                    src="video3.mp4"
-                    muted
-                    loop
-                    playsinline
-                    preload="metadata">
-                </video>
-<div class="video-info">
-                    <h2>Custom Mosquito Screens</h2>
-                    <p>Magnetic • Door • Custom Installation</p>
-                </div>
-            </article>
-
-        </section>
-
-        <!-- BLUE HIGHLIGHTED INFORMATION AREA -->
-        <footer id="contact" class="footer-area">
-
-            <div class="footer-hover-popup">
-                <strong>Mr. Royal Mosquito Screens - Contact & Information</strong>
-                <p>
-                    Move the mouse over the blue information area to see this
-                    quick information popup. Hover individual FAQ questions
-                    to display their answers.
-                </p>
+        <div class="bottom-row">
+            <div class="copyright">
+                © 2026 Mr. Royal Mosquito Screens - Udumalpet
             </div>
 
-            <div class="footer-grid">
-
-                <!-- CONTACT -->
-                <div class="footer-column contact-box">
-                    <h3>Contact</h3>
-
-                    <a class="contact-link" href="https://wa.me/918344640555" target="_blank">
-                        WhatsApp: +91 83 44 640555
-                    </a>
-
-                    <a class="contact-link" href="tel:+918344640555">
-                        Call: +91 83 44 640555
-                    </a>
-
-                    <a class="contact-link" href="mailto:riazudeen2021@gmail.com">
-                        Email: riazudeen2021@gmail.com
-                    </a>
-
-                    <div class="contact-popup">
-                        <h4>Contact Mr. Royal Mosquito Screens</h4>
-                        <a href="https://wa.me/918344640555" target="_blank">
-                            WhatsApp: +91 83 44 640555
-                        </a>
-                        <a href="tel:+918344640555">
-                            Call: +91 83 44 640555
-                        </a>
-                        <a href="mailto:riazudeen2021@gmail.com">
-                            Email: riazudeen2021@gmail.com
-                        </a>
-                    </div>
-                </div>
-
-                <!-- LINKS -->
-                <div class="footer-column">
-                    <h3>Links</h3>
-                    <ul>
-                        <li>
-                            <a href="https://g.co/kgs/3gouJWr" target="_blank">
-                                🔗 Google
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://g.co/kgs/3gouJWr" target="_blank">
-                                g.co/kgs/3gouJWr
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://maps.app.goo.gl/op9insNVTGua6NXu7" target="_blank">
-                                📍 Location
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://maps.app.goo.gl/op9insNVTGua6NXu7" target="_blank">
-                                maps.app.goo.gl/op9insNVTGua6NXu7
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://wa.me/message/6VCHKPQ65NKSF1" target="_blank">
-                                💬 WhatsApp Message
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://wa.me/message/6VCHKPQ65NKSF1" target="_blank">
-                                wa.me/message/6VCHKPQ65NKSF1
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- SERVICES -->
-                <div id="services" class="footer-column">
-                    <h3>Our Services</h3>
-
-                    <table class="services">
-                        <thead>
-                            <tr>
-                                <th>Service</th>
-                                <th>Suitable For</th>
-                                <th>Custom</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>🪟 Window Mosquito Screens</td>
-                                <td>Homes, Offices, Apartments</td>
-                                <td>Yes</td>
-                            </tr>
-                            <tr>
-                                <td>🛏️ Bed Mosquito Nets</td>
-                                <td>Single, Double, King & Super King</td>
-                                <td>Yes</td>
-                            </tr>
-                            <tr>
-                                <td>🧲 Magnetic Screens</td>
-                                <td>Windows & Doors</td>
-                                <td>Yes</td>
-                            </tr>
-                            <tr>
-                                <td>🚪 Door Mosquito Screens</td>
-                                <td>Home & Commercial Use</td>
-                                <td>Yes</td>
-                            </tr>
-                            <tr>
-                                <td>🔧 Custom Installation</td>
-                                <td>Non-standard Frames</td>
-                                <td>Yes</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- QUICK INFO -->
-                <div class="footer-column">
-                    <h3>Quick Information</h3>
-                    <ul>
-                        <li>📐 Custom Size Available</li>
-                        <li>🪟 Window Screens</li>
-                        <li>🚪 Door Screens</li>
-                        <li>🛏️ Bed Nets</li>
-                        <li>🧲 Magnetic Screens</li>
-                        <li>🔧 Custom Installation</li>
-                    </ul>
-                </div>
-
+            <div class="bottom-links">
+                <a href="#contact">Contact</a>
+                <a href="#services">Services</a>
+                <a href="#faq">FAQs</a>
+                <a href="https://wa.me/918344640555" target="_blank">WhatsApp</a>
+                <a href="tel:+918344640555">Call</a>
+                <a href="mailto:riazudeen2021@gmail.com">Email</a>
             </div>
+        </div>
 
-            <!-- FAQ -->
-            <section id="faq" class="faq-section">
-                <h2>Frequently Asked Questions</h2>
-
-                <div class="faq">
-                    <div class="faq-question">📐 How do I measure my bed or window for a mosquito net?</div>
-                    <div class="faq-answer">
-                        Measure the complete width, height and length of the area where the mosquito screen
-                        will be installed. For custom-size screens, send the measurements to us before ordering.
-                    </div>
-                </div>
-
-                <div class="faq">
-                    <div class="faq-question">📐 Do you have nets that fit king-size or super-king beds?</div>
-                    <div class="faq-answer">
-                        Yes. Size options can be selected based on your bed dimensions.
-                        Custom sizes can also be discussed.
-                    </div>
-                </div>
-
-                <div class="faq">
-                    <div class="faq-question">📐 Can these nets be used on bunk beds or baby cribs?</div>
-                    <div class="faq-answer">
-                        The suitable design depends on the exact size and installation location.
-                        Please provide the dimensions before purchase.
-                    </div>
-                </div>
-
-                <div class="faq">
-                    <div class="faq-question">📐 Do you offer custom-size nets for non-standard window frames?</div>
-                    <div class="faq-answer">
-                        Yes. Custom-size window mosquito screens can be made according to the required measurements.
-                    </div>
-                </div>
-
-                <div class="faq">
-                    <div class="faq-question">🛠️ Do I need to drill holes in the wall or ceiling?</div>
-                    <div class="faq-answer">
-                        Installation requirements depend on the type of mosquito screen. Some designs require
-                        fixing to the frame or wall, while other designs can be installed without permanent drilling.
-                    </div>
-                </div>
-
-                <div class="faq">
-                    <div class="faq-question">🛠️ Does the bed net come with a standing frame?</div>
-                    <div class="faq-answer">
-                        This depends on the selected model. Please contact us with your required bed size
-                        and installation type.
-                    </div>
-                </div>
-
-                <div class="faq">
-                    <div class="faq-question">🛠️ How do magnetic window mosquito nets attach to the frame?</div>
-                    <div class="faq-answer">
-                        Magnetic screens generally use magnetic strips or magnetic closures around the opening
-                        so the screen can be opened and closed conveniently.
-                    </div>
-                </div>
-
-                <div class="faq">
-                    <div class="faq-question">🛠️ Is it easy to take the net down?</div>
-                    <div class="faq-answer">
-                        Many removable mosquito-screen designs can be taken down when required.
-                        The exact method depends on the installation type.
-                    </div>
-                </div>
-
-                <div class="faq">
-                    <div class="faq-question">🧵 What material are the nets made from?</div>
-                    <div class="faq-answer">
-                        Available material can vary by product. Please contact Mr. Royal Mosquito Screens
-                        for the material options available.
-                    </div>
-                </div>
-
-                <div class="faq">
-                    <div class="faq-question">🧵 Are the nets treated with chemical insecticides?</div>
-                    <div class="faq-answer">
-                        Treatment depends on the particular product. Please confirm the specification
-                        of the selected screen before purchase.
-                    </div>
-                </div>
-
-                <div class="faq">
-                    <div class="faq-question">🧵 How small is the mesh size?</div>
-                    <div class="faq-answer">
-                        Mesh size depends on the selected product. Contact us for the exact mesh specification.
-                    </div>
-                </div>
-
-                <div class="faq">
-                    <div class="faq-question">🧵 Is the fabric durable enough for homes with pets?</div>
-                    <div class="faq-answer">
-                        Durability depends on the selected mesh and frame. Please ask us for a suitable option
-                        if you have cats, dogs or other pets.
-                    </div>
-                </div>
-
-                <div class="faq">
-                    <div class="faq-question">🧺 Can I wash the mosquito net in a washing machine?</div>
-                    <div class="faq-answer">
-                        Cleaning instructions depend on the material. Check the product-specific care
-                        instructions before machine washing.
-                    </div>
-                </div>
-
-                <div class="faq">
-                    <div class="faq-question">🧺 How should I clean a magnetic or roller window screen?</div>
-                    <div class="faq-answer">
-                        Gently remove dust using a soft brush or vacuum attachment.
-                        Follow the care instructions for the particular screen.
-                    </div>
-                </div>
-
-                <div class="faq">
-                    <div class="faq-question">🧺 Can I iron the net if it gets wrinkled?</div>
-                    <div class="faq-answer">
-                        Avoid high heat directly on the net unless the material is specifically confirmed
-                        to be safe for ironing.
-                    </div>
-                </div>
-
-                <div class="faq">
-                    <div class="faq-question">🧺 What is the best way to store the net?</div>
-                    <div class="faq-answer">
-                        Clean and completely dry the net before storing it. Keep it folded or rolled in
-                        a dry place away from moisture and sharp objects.
-                    </div>
-                </div>
-
-                <div class="faq">
-                    <div class="faq-question">🚪 Do you have pop-up mosquito nets?</div>
-                    <div class="faq-answer">
-                        Product availability depends on the current range. Contact us to check available
-                        pop-up or removable models.
-                    </div>
-                </div>
-
-                <div class="faq">
-                    <div class="faq-question">🚪 Can mosquito nets be used outdoors?</div>
-                    <div class="faq-answer">
-                        Some mosquito-screen products can be used outdoors. Suitability depends on
-                        the product, installation and weather exposure.
-                    </div>
-                </div>
-
-                <div class="faq">
-                    <div class="faq-question">🚪 How does the opening and closure work?</div>
-                    <div class="faq-answer">
-                        Depending on the design, opening and closure may use zippers, magnets,
-                        overlapping mesh or other fixing methods.
-                    </div>
-                </div>
-
-                <div class="faq">
-                    <div class="faq-question">🚪 Do window nets block fresh air or the outside view?</div>
-                    <div class="faq-answer">
-                        Mosquito screens are designed to allow ventilation while helping keep insects outside.
-                        Visibility and airflow depend on the mesh design.
-                    </div>
-                </div>
-
-                <div class="faq">
-                    <div class="faq-question">📦 What is the return policy if the net doesn't fit?</div>
-                    <div class="faq-answer">
-                        Please confirm measurements before ordering. For custom-size products,
-                        return conditions may differ. Contact us before placing an order for the applicable policy.
-                    </div>
-                </div>
-
-                <div class="faq">
-                    <div class="faq-question">📦 Do products come with a warranty?</div>
-                    <div class="faq-answer">
-                        Warranty availability depends on the product. Please confirm the applicable
-                        warranty terms before purchase.
-                    </div>
-                </div>
-
-                <div class="faq">
-                    <div class="faq-question">📦 How long does shipping take?</div>
-                    <div class="faq-answer">
-                        Delivery time depends on product availability, customization and delivery location.
-                        Contact us for the current estimate.
-                    </div>
-                </div>
-            </section>
-
-            <div class="bottom-row">
-                <div class="copyright">
-                    © 2026 Mr. Royal Mosquito Screens - Udumalpet
-                </div>
-
-                <div class="bottom-links">
-                    <a href="#contact">Contact</a>
-                    <a href="#services">Services</a>
-                    <a href="#faq">FAQs</a>
-                    <a href="https://wa.me/918344640555" target="_blank">WhatsApp</a>
-                    <a href="tel:+918344640555">Call</a>
-                    <a href="mailto:riazudeen2021@gmail.com">Email</a>
-                </div>
-            </div>
-
-        </footer>
-
-    </main>
+    </footer>
+</main>
 </div>
 
 <script>
-/* ==========================================
-   VIDEO HOVER CONTROL
-   Video plays when mouse enters the red box.
-   It pauses when mouse leaves.
-   ========================================== */
+/* ============================
+   VIDEO HOVER PLAY
+   video1.mp4
+   video2.mp4
+   video3.mp4
+   ============================ */
 
 document.querySelectorAll(".video-card").forEach(function(card){
 
     const video = card.querySelector("video");
 
-    card.addEventListener("mouseenter", function(){
+    card.addEventListener("mouseenter",function(){
         video.currentTime = 0;
-        video.play().catch(function(error){
-            console.log("Video play was blocked:", error);
-        });
+        video.play().catch(function(){});
     });
 
-    card.addEventListener("mouseleave", function(){
+    card.addEventListener("mouseleave",function(){
         video.pause();
         video.currentTime = 0;
     });
 
-    /* Mobile/touch: tapping a card starts/stops the video */
-    card.addEventListener("click", function(){
+    /* Mobile/touch support */
+    card.addEventListener("click",function(){
         if(video.paused){
             video.play().catch(function(){});
         }else{
@@ -992,8 +815,43 @@ document.querySelectorAll(".video-card").forEach(function(card){
         }
     });
 });
+
+/* =====================================
+   ONLY SERVICE TABLE HOVER POPUP
+   The popup appears BELOW the table.
+   ===================================== */
+
+const serviceRows = document.querySelectorAll(".services tbody tr");
+const serviceHoverInfo = document.getElementById("serviceHoverInfo");
+const serviceHoverTitle = document.getElementById("serviceHoverTitle");
+const serviceHoverText = document.getElementById("serviceHoverText");
+
+function showServiceInfo(row){
+    serviceHoverTitle.textContent = row.dataset.title;
+    serviceHoverText.textContent = row.dataset.info;
+    serviceHoverInfo.classList.add("show");
+}
+
+function hideServiceInfo(){
+    serviceHoverInfo.classList.remove("show");
+}
+
+serviceRows.forEach(function(row){
+
+    row.addEventListener("mouseenter",function(){
+        showServiceInfo(row);
+    });
+
+    row.addEventListener("mouseleave",function(){
+        hideServiceInfo();
+    });
+
+    /* Touch/mobile */
+    row.addEventListener("click",function(){
+        showServiceInfo(row);
+    });
+});
 </script>
 
 </body>
 </html>
-
