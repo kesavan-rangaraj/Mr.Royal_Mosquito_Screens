@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#101820">
 <title>Mr. Royal Mosquito Screens - Udumalpet</title>
 
 <style>
@@ -13,717 +12,550 @@
     padding:0;
 }
 
-html,body{
-    width:100%;
-    min-height:100%;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#dce7ed;
-    color:#17324d;
+html{
+    scroll-behavior:smooth;
 }
 
 body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#07131a;
+    color:#fff;
+    min-height:100vh;
     overflow-x:hidden;
 }
 
-/* =========================================================
-   FULL-SCREEN VIDEO BACKGROUND
-   10 videos are used. JavaScript selects them randomly.
-   Put video1.mp4 ... video10.mp4 in the same folder.
-   ========================================================= */
-
-#backgroundMedia{
-    position:fixed;
-    inset:0;
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    z-index:-10;
-    background:#dce7ed;
+/* =========================
+   BACKGROUND
+   ========================= */
+.page{
+    min-height:100vh;
+    position:relative;
+    background:
+        radial-gradient(circle at 15% 20%, rgba(28,75,105,.55), transparent 30%),
+        radial-gradient(circle at 85% 35%, rgba(73,65,30,.45), transparent 32%),
+        linear-gradient(135deg,#061018,#0b202b 45%,#050d13);
 }
 
-.bg-media{
-    position:absolute;
+.page:before{
+    content:"";
+    position:fixed;
     inset:0;
+    z-index:0;
+    pointer-events:none;
+    background:
+        linear-gradient(115deg,transparent 20%,rgba(255,255,255,.035) 21%,transparent 22%),
+        linear-gradient(25deg,transparent 55%,rgba(0,180,255,.035) 56%,transparent 58%);
+}
+
+/* =========================
+   TOP NAVIGATION
+   ========================= */
+.navbar{
+    height:56px;
+    padding:0 28px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:relative;
+    z-index:10;
+    background:rgba(3,9,13,.72);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.logo{
+    font-size:20px;
+    font-weight:900;
+    letter-spacing:-1px;
+}
+
+.nav-left,
+.nav-right{
+    display:flex;
+    align-items:center;
+    gap:22px;
+}
+
+.nav-left a,
+.nav-right a{
+    color:#ddd;
+    text-decoration:none;
+    font-size:12px;
+}
+
+.nav-left a:hover,
+.nav-right a:hover{
+    color:#fff;
+}
+
+.nominee-btn{
+    border:1px solid rgba(255,255,255,.35);
+    border-radius:5px;
+    padding:8px 12px;
+}
+
+/* =========================
+   MAIN
+   ========================= */
+.main{
+    width:min(1080px,94%);
+    margin:auto;
+    position:relative;
+    z-index:2;
+}
+
+/* =========================
+   GREEN AREA - TITLE
+   ========================= */
+.hero{
+    text-align:center;
+    padding:35px 15px 42px;
+    position:relative;
+}
+
+.hero-title{
+    display:inline-block;
+    font-size:clamp(48px,9vw,96px);
+    line-height:.95;
+    font-weight:900;
+    letter-spacing:-4px;
+    color:#f7f7f7;
+    cursor:pointer;
+    position:relative;
+    transition:transform .25s ease,text-shadow .25s ease;
+}
+
+.hero-title:hover{
+    transform:scale(1.025);
+    text-shadow:0 0 25px rgba(255,255,255,.35);
+}
+
+/* green-highlight hover popup */
+.hero-popup{
+    position:absolute;
+    left:50%;
+    top:112px;
+    transform:translateX(-50%) translateY(8px);
+    width:min(430px,90vw);
+    padding:18px 20px;
+    border-radius:14px;
+    background:rgba(8,18,24,.96);
+    border:1px solid #39ff14;
+    box-shadow:0 0 25px rgba(57,255,20,.22);
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transition:.25s ease;
+    z-index:30;
+}
+
+.hero:hover .hero-popup{
+    opacity:1;
+    visibility:visible;
+    transform:translateX(-50%) translateY(0);
+}
+
+.hero-popup h3{
+    color:#39ff14;
+    margin-bottom:8px;
+    font-size:18px;
+}
+
+.hero-popup p{
+    color:#ddd;
+    font-size:14px;
+    line-height:1.55;
+}
+
+.hero-subtitle{
+    margin-top:12px;
+    color:#eee;
+    font-size:16px;
+    line-height:1.35;
+}
+
+/* =========================
+   VIDEO CARDS
+   ========================= */
+.video-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+    padding:0 12px 48px;
+}
+
+.video-card{
+    position:relative;
+    height:235px;
+    overflow:hidden;
+    border-radius:9px;
+    border:1px solid rgba(255,255,255,.22);
+    background:#101b21;
+    cursor:pointer;
+    box-shadow:0 12px 35px rgba(0,0,0,.35);
+    transition:transform .28s ease,box-shadow .28s ease,border-color .28s ease;
+}
+
+.video-card:hover{
+    transform:translateY(-7px) scale(1.015);
+    border-color:rgba(255,255,255,.65);
+    box-shadow:0 18px 45px rgba(0,0,0,.55);
+}
+
+.video-card video{
     width:100%;
     height:100%;
     object-fit:cover;
-    object-position:center center;
-    opacity:0;
-    transition:opacity 1.2s ease-in-out;
+    display:block;
+    background:#101820;
 }
 
-.bg-media.active{
-    opacity:1;
-}
-
-/* Dark/light transparent layer.
-   It keeps the video clearly visible while text remains readable. */
-.background-overlay{
+/* dark overlay */
+.video-card:after{
+    content:"";
     position:absolute;
     inset:0;
-    background:
-        linear-gradient(
-            180deg,
-            rgba(225,236,242,.10) 0%,
-            rgba(210,224,232,.16) 45%,
-            rgba(190,207,217,.24) 100%
-        );
-    z-index:5;
+    background:linear-gradient(to top,rgba(0,0,0,.78),rgba(0,0,0,.05) 60%);
     pointer-events:none;
 }
 
-/* Images and videos use exactly the same full-screen treatment. */
-.bg-media{
-    object-fit:cover;
-    object-position:center center;
-    opacity:0;
-    transition:opacity 1.2s ease-in-out;
+.video-info{
+    position:absolute;
+    left:16px;
+    right:16px;
+    bottom:15px;
+    z-index:3;
 }
 
-.bg-media.active{
-    opacity:1;
-}
-
-/* =========================================================
-   PAGE
-   ========================================================= */
-
-.page{
-    position:relative;
-    min-height:100vh;
-    padding:24px 18px 60px;
-}
-
-.header{
-    text-align:center;
-    margin:10px auto 28px;
-    max-width:1200px;
-}
-
-.header h1{
-    font-size:clamp(30px,5vw,64px);
-    color:#1856c9;
-    font-weight:800;
-    text-shadow:0 4px 18px rgba(255,255,255,.75);
-}
-
-.header p{
-    margin-top:8px;
-    font-size:clamp(16px,2.3vw,24px);
-    color:#29445c;
-    text-shadow:0 2px 10px rgba(255,255,255,.85);
-}
-
-/* Main glass panel */
-.content{
-    width:min(1120px,96vw);
-    margin:0 auto;
-    padding:24px;
-    border:1px solid rgba(255,255,255,.72);
-    border-radius:22px;
-    background:rgba(235,243,247,.30);
-    backdrop-filter:blur(7px);
-    -webkit-backdrop-filter:blur(7px);
-    box-shadow:0 20px 70px rgba(57,79,94,.22);
-}
-
-/* =========================================================
-   SECTION HEADINGS
-   ========================================================= */
-
-.section-title{
-    text-align:center;
-    font-size:clamp(27px,4vw,44px);
-    margin:8px 0 22px;
-    text-shadow:0 3px 12px rgba(255,255,255,.90);
-}
-
-/* =========================================================
-   CONTACT
-   ========================================================= */
-
-.contact-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:14px;
-}
-
-.contact-card{
-    padding:20px;
-    border:1px solid rgba(255,255,255,.65);
-    border-radius:15px;
-    background:rgba(255,255,255,.52);
-    min-height:115px;
-}
-
-.contact-card h2{
-    font-size:24px;
-    margin-bottom:10px;
-}
-
-.contact-card a{
-    color:#17324d;
+.video-info h2{
     font-size:19px;
-    font-weight:600;
-    text-decoration:none;
-    word-break:break-word;
-}
-
-.contact-card a:hover{
-    text-decoration:underline;
-}
-
-/* =========================================================
-   LINKS
-   ========================================================= */
-
-.links-section{
-    margin-top:38px;
-}
-
-.links-list{
-    border-top:1px solid rgba(255,255,255,.20);
-}
-
-.link-item{
-    display:flex;
-    align-items:center;
-    gap:20px;
-    padding:20px 8px;
-    border-bottom:1px solid rgba(255,255,255,.18);
-    text-decoration:none;
-    color:#17324d;
-    transition:.25s ease;
-}
-
-.link-item:hover{
-    background:rgba(255,255,255,.52);
-    transform:translateX(4px);
-}
-
-.link-icon{
-    width:62px;
-    min-width:62px;
-    height:62px;
-    border:2px solid rgba(255,255,255,.85);
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:28px;
-    background:rgba(255,255,255,.42);
-}
-
-.link-text h3{
-    font-size:23px;
     margin-bottom:5px;
 }
 
-.link-text span{
-    color:#41586c;
-    font-size:16px;
-    word-break:break-all;
+.video-info p{
+    color:#ddd;
+    font-size:13px;
 }
 
-/* =========================================================
-   QUICK SERVICES TABLE
-   Light transparent colours so the background video
-   remains visible.
-   ========================================================= */
-
-.services-section{
-    margin-top:42px;
-}
-
-.table-wrap{
-    width:100%;
-    overflow-x:auto;
-    border-radius:15px;
-    border:1px solid rgba(255,255,255,.25);
-    background:rgba(255,255,255,.08);
-}
-
-.services-table{
-    width:100%;
-    min-width:650px;
-    border-collapse:collapse;
-}
-
-.services-table th{
-    background:rgba(255,255,255,.18);
-    color:#17324d;
-    padding:15px 14px;
-    text-align:left;
-    font-size:17px;
-}
-
-.services-table td{
+/* popup shown when mouse is over each red highlighted video */
+.video-popup{
+    position:absolute;
+    left:12px;
+    right:12px;
+    top:12px;
     padding:14px;
-    border-top:1px solid rgba(255,255,255,.14);
-    color:#243b53;
-    background:rgba(255,255,255,.30);
-    font-size:16px;
-}
-
-.services-table tr:hover td{
-    background:rgba(255,255,255,.52);
-}
-
-/* =========================================================
-   FAQ
-   ========================================================= */
-
-.faq-title{
-    text-align:center;
-    font-size:clamp(27px,4vw,44px);
-    margin:45px 0 22px;
-    text-shadow:0 3px 12px rgba(255,255,255,.90);
-}
-
-.faq-category{
-    margin-top:22px;
-    font-size:22px;
-    font-weight:700;
-    padding:14px 17px;
-    border-radius:12px;
-    background:rgba(255,255,255,.13);
-    border:1px solid rgba(255,255,255,.14);
-}
-
-.faq{
-    margin-top:8px;
-    border-bottom:1px solid rgba(255,255,255,.15);
-}
-
-.faq summary{
-    cursor:pointer;
-    list-style:none;
-    padding:17px;
-    font-size:18px;
-    font-weight:600;
-}
-
-.faq summary::-webkit-details-marker{
-    display:none;
-}
-
-.faq summary::after{
-    content:"+";
-    float:right;
-    font-size:24px;
-}
-
-.faq[open] summary::after{
-    content:"−";
-}
-
-.answer{
-    padding:0 17px 17px;
-    color:#405568;
-    line-height:1.65;
-    font-size:16px;
-}
-
-/* =========================================================
-   VIDEO STATUS
-   ========================================================= */
-
-.video-status{
-    margin-top:28px;
-    padding:12px 16px;
-    border-radius:12px;
-    text-align:center;
-    background:rgba(255,255,255,.48);
-    border:1px solid rgba(255,255,255,.60);
-    color:#29445c;
-    font-size:14px;
-}
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
-
-.footer{
-    text-align:center;
-    margin-top:28px;
-    color:#405568;
-    font-size:14px;
-    text-shadow:0 2px 7px rgba(255,255,255,.80);
-}
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media(max-width:800px){
-
-    .page{
-        padding:14px 10px 40px;
-    }
-
-    .header{
-        margin-bottom:18px;
-    }
-
-    .content{
-        width:100%;
-        padding:16px;
-        border-radius:17px;
-        background:rgba(235,243,247,.24);
-    }
-
-    .contact-grid{
-        grid-template-columns:1fr;
-    }
-
-    .contact-card{
-        min-height:auto;
-        padding:17px;
-    }
-
-    .contact-card h2{
-        font-size:22px;
-    }
-
-    .contact-card a{
-        font-size:17px;
-    }
-
-    .link-item{
-        gap:13px;
-        padding:17px 3px;
-    }
-
-    .link-icon{
-        width:52px;
-        min-width:52px;
-        height:52px;
-        font-size:23px;
-    }
-
-    .link-text h3{
-        font-size:20px;
-    }
-
-    .link-text span{
-        font-size:14px;
-    }
-
-    .faq summary{
-        font-size:16px;
-        padding:15px 8px;
-    }
-
-    .answer{
-        padding:0 8px 15px;
-        font-size:15px;
-    }
-
-    .faq-category{
-        font-size:19px;
-        padding:12px 13px;
-    }
-
-    .background-overlay{
-        background:
-            linear-gradient(
-                180deg,
-                rgba(0,0,0,.24),
-                rgba(0,0,0,.48)
-            );
-    }
-}
-
-/* Very small phones */
-@media(max-width:420px){
-
-    .header h1{
-        font-size:30px;
-    }
-
-    .content{
-        padding:13px;
-    }
-
-    .section-title{
-        font-size:27px;
-    }
-
-    .services-table th,
-    .services-table td{
-        padding:11px;
-        font-size:14px;
-    }
-}
-
-/* BACK TO TOP BUTTON */
-.back-to-top{
-    position:fixed;
-    right:22px;
-    bottom:22px;
-    z-index:100;
-    width:52px;
-    height:52px;
-    border:none;
-    border-radius:50%;
-    background:rgba(24,86,201,.90);
-    color:#fff;
-    font-size:24px;
-    font-weight:700;
-    cursor:pointer;
-    box-shadow:0 6px 20px rgba(0,0,0,.28);
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    border-radius:10px;
+    background:rgba(5,12,17,.94);
+    border:1px solid rgba(255,255,255,.45);
     opacity:0;
     visibility:hidden;
-    transform:translateY(12px);
-    transition:.25s ease;
+    transform:translateY(-8px);
+    transition:.22s ease;
+    z-index:8;
+    pointer-events:none;
 }
-.back-to-top.show{
+
+.video-card:hover .video-popup{
     opacity:1;
     visibility:visible;
     transform:translateY(0);
 }
-.back-to-top:hover{
-    background:rgba(24,86,201,1);
-    transform:translateY(-2px);
-}
-@media(max-width:600px){
-    .back-to-top{
-        right:14px;
-        bottom:14px;
-        width:46px;
-        height:46px;
-        font-size:21px;
-    }
+
+.video-popup strong{
+    display:block;
+    margin-bottom:5px;
+    font-size:15px;
 }
 
-
-/* =========================================================
-   SIDE MEDIA STORY BOXES
-   Sequence:
-   1) First image
-   2) Video
-   3) Second image
-   4) Information card
-   Desktop: left and right side
-   Mobile: below the main content
-   ========================================================= */
-
-.media-side{
-    position:fixed;
-    top:52px;
-    width:24vw;
-    max-width:420px;
-    min-width:250px;
-    height:calc(100vh - 105px);
-    z-index:2;
-    pointer-events:auto;
-}
-
-.media-side.left{ left:14px; }
-.media-side.right{ right:14px; }
-
-.media-box{
-    position:relative;
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    border:2px solid rgba(255,255,255,.72);
-    border-radius:28px;
-    background:rgba(235,243,247,.18);
-    box-shadow:0 15px 45px rgba(40,60,75,.20);
-    backdrop-filter:blur(3px);
-    -webkit-backdrop-filter:blur(3px);
-}
-
-.media-box::before{
-    content:"";
-    position:absolute;
-    inset:9%;
-    border:8px solid #e5f000;
-    border-radius:50%;
-    z-index:5;
-    pointer-events:none;
-    opacity:.90;
-    transform:rotate(-8deg);
-}
-
-.media-box::after{
-    content:"";
-    position:absolute;
-    inset:13%;
-    border:3px solid rgba(229,240,0,.82);
-    border-radius:50%;
-    z-index:5;
-    pointer-events:none;
-    transform:rotate(7deg);
-}
-
-.side-media{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    object-position:center;
-    opacity:0;
-    visibility:hidden;
-    transition:opacity .8s ease, visibility .8s ease;
-    z-index:1;
-}
-
-.side-media.active{
-    opacity:1;
-    visibility:visible;
-}
-
-.side-info{
-    position:absolute;
-    inset:0;
-    display:flex;
-    flex-direction:column;
-    justify-content:flex-end;
-    padding:28px 22px;
-    background:
-        linear-gradient(
-            180deg,
-            rgba(10,20,30,.08) 0%,
-            rgba(10,20,30,.20) 35%,
-            rgba(10,20,30,.82) 100%
-        );
-    color:#fff;
-    opacity:0;
-    visibility:hidden;
-    transition:opacity .8s ease, visibility .8s ease;
-    z-index:2;
-}
-
-.side-info.active{
-    opacity:1;
-    visibility:visible;
-}
-
-.side-info .info-label{
-    display:inline-block;
-    width:max-content;
-    max-width:100%;
-    padding:7px 11px;
-    margin-bottom:10px;
-    border-radius:20px;
-    background:rgba(229,240,0,.95);
-    color:#14212b;
+.video-popup span{
+    color:#d8d8d8;
     font-size:12px;
-    font-weight:800;
-    text-transform:uppercase;
-    letter-spacing:.7px;
+    line-height:1.4;
 }
 
-.side-info h3{
-    font-size:clamp(22px,2.1vw,32px);
-    line-height:1.08;
-    margin-bottom:10px;
+/* =========================
+   BLUE INFORMATION AREA
+   ========================= */
+.footer-area{
+    position:relative;
+    margin:0 0 20px;
+    padding:30px 26px 22px;
+    border-top:1px solid rgba(255,255,255,.12);
+    background:rgba(4,12,17,.78);
+    backdrop-filter:blur(12px);
 }
 
-.side-info p{
-    font-size:clamp(14px,1.25vw,17px);
-    line-height:1.5;
-    color:rgba(255,255,255,.92);
-}
-
-.media-caption{
+/* blue-area hover popup */
+.footer-hover-popup{
     position:absolute;
     left:50%;
-    bottom:18px;
-    transform:translateX(-50%);
-    z-index:6;
-    width:calc(100% - 32px);
-    padding:9px 12px;
-    text-align:center;
+    top:-68px;
+    transform:translateX(-50%) translateY(10px);
+    width:min(560px,90%);
+    padding:15px 18px;
     border-radius:12px;
-    background:rgba(255,255,255,.72);
-    border:1px solid rgba(255,255,255,.85);
-    color:#17324d;
-    font-weight:700;
-    font-size:14px;
-    box-shadow:0 4px 14px rgba(0,0,0,.16);
+    background:rgba(5,14,20,.98);
+    border:1px solid #2589ff;
+    box-shadow:0 0 28px rgba(37,137,255,.25);
+    opacity:0;
+    visibility:hidden;
     pointer-events:none;
+    transition:.25s ease;
+    z-index:50;
+    text-align:center;
 }
 
-.media-progress{
-    position:absolute;
-    left:18px;
-    right:18px;
-    top:16px;
-    display:flex;
-    gap:5px;
-    z-index:7;
+.footer-area:hover .footer-hover-popup{
+    opacity:1;
+    visibility:visible;
+    transform:translateX(-50%) translateY(0);
 }
 
-.media-progress span{
-    flex:1;
-    height:4px;
-    border-radius:10px;
-    background:rgba(255,255,255,.40);
+.footer-hover-popup strong{
+    color:#5eb0ff;
+}
+
+.footer-hover-popup p{
+    margin-top:5px;
+    color:#ddd;
+    font-size:13px;
+}
+
+.footer-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr 1.35fr;
+    gap:25px;
+}
+
+.footer-column h3{
+    font-size:13px;
+    margin-bottom:12px;
+    color:#fff;
+}
+
+.footer-column p,
+.footer-column a,
+.footer-column li{
+    color:#c8c8c8;
+    font-size:11px;
+    line-height:1.8;
+}
+
+.footer-column ul{
+    list-style:none;
+}
+
+.footer-column a{
+    text-decoration:none;
+    transition:.2s ease;
+}
+
+.footer-column a:hover{
+    color:#fff;
+    text-decoration:underline;
+}
+
+/* Contact links */
+.contact-link{
+    display:block;
+    padding:3px 0;
+}
+
+.services{
+    margin-top:18px;
+    width:100%;
+    border-collapse:collapse;
+}
+
+.services th,
+.services td{
+    border:1px solid rgba(255,255,255,.13);
+    padding:7px;
+    text-align:left;
+    font-size:10px;
+}
+
+.services th{
+    color:#fff;
+    background:rgba(255,255,255,.06);
+}
+
+.services td{
+    color:#ccc;
+}
+
+/* FAQ */
+.faq-section{
+    margin-top:28px;
+}
+
+.faq-section h2{
+    font-size:17px;
+    margin-bottom:12px;
+}
+
+.faq{
+    border-bottom:1px solid rgba(255,255,255,.10);
+}
+
+.faq-question{
+    padding:10px 0;
+    color:#eee;
+    font-size:12px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.faq-answer{
+    max-height:0;
     overflow:hidden;
+    color:#aaa;
+    font-size:11px;
+    line-height:1.55;
+    transition:max-height .3s ease,padding .3s ease;
 }
 
-.media-progress span.active{
-    background:#e5f000;
+.faq:hover .faq-answer{
+    max-height:130px;
+    padding:0 0 10px;
 }
 
-@media(max-width:1100px){
-    .media-side{
-        width:21vw;
-        min-width:190px;
-    }
-
-    .media-box::before{ border-width:6px; }
+.bottom-row{
+    margin-top:24px;
+    padding-top:18px;
+    border-top:1px solid rgba(255,255,255,.1);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
 }
 
+.bottom-links{
+    display:flex;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+.bottom-links a{
+    color:#aaa;
+    font-size:10px;
+    text-decoration:none;
+}
+
+.bottom-links a:hover{
+    color:#fff;
+}
+
+.copyright{
+    color:#aaa;
+    font-size:10px;
+}
+
+/* =========================
+   CONTACT POPUP
+   ========================= */
+.contact-box{
+    position:relative;
+}
+
+.contact-popup{
+    position:absolute;
+    left:0;
+    top:100%;
+    width:260px;
+    padding:15px;
+    border-radius:10px;
+    background:#071218;
+    border:1px solid #2589ff;
+    box-shadow:0 15px 35px rgba(0,0,0,.55);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(8px);
+    transition:.2s ease;
+    z-index:80;
+}
+
+.contact-box:hover .contact-popup{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+}
+
+.contact-popup h4{
+    margin-bottom:8px;
+    color:#fff;
+}
+
+.contact-popup a{
+    display:block;
+    margin:5px 0;
+    color:#8dc8ff;
+    font-size:11px;
+}
+
+/* =========================
+   MOBILE
+   ========================= */
 @media(max-width:800px){
-    .media-side{
-        position:relative;
-        top:auto;
-        left:auto !important;
-        right:auto !important;
-        width:calc(100% - 20px);
-        max-width:none;
-        min-width:0;
-        height:300px;
-        margin:16px auto;
+    .navbar{
+        padding:0 15px;
     }
 
-    .media-side.left{ order:1; }
-    .media-side.right{ order:3; }
-
-    .page{
-        display:flex;
-        flex-direction:column;
+    .nav-left{
+        display:none;
     }
 
-    .header{ order:0; }
-    .content{ order:2; }
-    .footer{ order:4; }
-
-    .media-box::before{
-        inset:16%;
-        border-width:6px;
+    .nav-right{
+        gap:10px;
     }
 
-    .media-box::after{ inset:20%; }
-
-    .side-info{
-        padding:24px 18px;
+    .hero{
+        padding-top:28px;
     }
 
-    .side-info h3{
-        font-size:24px;
+    .hero-title{
+        letter-spacing:-2px;
     }
 
-    .side-info p{
+    .hero-popup{
+        top:95px;
+    }
+
+    .video-grid{
+        grid-template-columns:1fr;
+        padding-left:5px;
+        padding-right:5px;
+    }
+
+    .video-card{
+        height:245px;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:500px){
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+
+    .hero-title{
+        font-size:48px;
+    }
+
+    .hero-subtitle{
         font-size:14px;
+    }
+
+    .footer-area{
+        padding:25px 15px 20px;
+    }
+
+    .footer-hover-popup{
+        top:-105px;
     }
 }
 </style>
@@ -731,816 +563,498 @@ body{
 
 <body>
 
-<!-- =========================================================
-     FULL-SCREEN BACKGROUND
-     Add these 10 files beside index.html:
-
-     video1.mp4
-     video2.mp4
-     video3.mp4
-     video4.mp4
-     video5.mp4
-     video6.mp4
-     video7.mp4
-     video8.mp4
-     video9.mp4
-     video10.mp4
-
-     The website randomly chooses the next video.
-     ========================================================= -->
-
-<div id="backgroundMedia">
-
-    <!-- 10 background images -->
-    <img class="bg-media" src="photo1.jpg" alt="Mosquito Screen 1">
-    <img class="bg-media" src="photo2.jpg" alt="Mosquito Screen 2">
-    <img class="bg-media" src="photo3.jpg" alt="Mosquito Screen 3">
-    <img class="bg-media" src="photo4.jpg" alt="Mosquito Screen 4">
-    <img class="bg-media" src="photo5.jpg" alt="Mosquito Screen 5">
-    <img class="bg-media" src="photo6.jpg" alt="Mosquito Screen 6">
-    <img class="bg-media" src="photo7.jpg" alt="Mosquito Screen 7">
-    <img class="bg-media" src="photo8.jpg" alt="Mosquito Screen 8">
-    <img class="bg-media" src="photo9.jpg" alt="Mosquito Screen 9">
-    <img class="bg-media" src="photo10.jpg" alt="Mosquito Screen 10">
-
-    <!-- 10 background videos -->
-    <video class="bg-media" muted playsinline preload="metadata">
-        <source src="video1.mp4" type="video/mp4">
-    </video>
-    <video class="bg-media" muted playsinline preload="metadata">
-        <source src="video2.mp4" type="video/mp4">
-    </video>
-    <video class="bg-media" muted playsinline preload="metadata">
-        <source src="video3.mp4" type="video/mp4">
-    </video>
-    <video class="bg-media" muted playsinline preload="metadata">
-        <source src="video4.mp4" type="video/mp4">
-    </video>
-    <video class="bg-media" muted playsinline preload="metadata">
-        <source src="video5.mp4" type="video/mp4">
-    </video>
-    <video class="bg-media" muted playsinline preload="metadata">
-        <source src="video6.mp4" type="video/mp4">
-    </video>
-    <video class="bg-media" muted playsinline preload="metadata">
-        <source src="video7.mp4" type="video/mp4">
-    </video>
-    <video class="bg-media" muted playsinline preload="metadata">
-        <source src="video8.mp4" type="video/mp4">
-    </video>
-    <video class="bg-media" muted playsinline preload="metadata">
-        <source src="video9.mp4" type="video/mp4">
-    </video>
-    <video class="bg-media" muted playsinline preload="metadata">
-        <source src="video10.mp4" type="video/mp4">
-    </video>
-
-    <div class="background-overlay"></div>
-</div>
-</div>
-
-
-<!-- LEFT MEDIA STORY
-     Sequence: IMAGE 1 → VIDEO → IMAGE 2 → INFORMATION -->
-<aside class="media-side left" aria-label="Left image video and information gallery">
-    <div class="media-box" data-gallery="left">
-        <div class="media-progress" aria-hidden="true">
-            <span></span><span></span><span></span><span></span>
-        </div>
-
-        <img class="side-media" src="photo1.jpg" alt="Mosquito Screen - First Image">
-        <video class="side-media" muted playsinline preload="metadata">
-            <source src="video1.mp4" type="video/mp4">
-        </video>
-        <img class="side-media" src="photo2.jpg" alt="Mosquito Screen - Second Image">
-
-        <div class="side-info">
-            <span class="info-label">Our Service</span>
-            <h3>Custom Mosquito Screens</h3>
-            <p>Made to suit your windows, doors and required measurements. Watch the video to see the product in action.</p>
-        </div>
-
-        <div class="media-caption">🖼️ Image → 🎥 Video → 🖼️ Image → ℹ️ Info</div>
-    </div>
-</aside>
-
-<!-- RIGHT MEDIA STORY
-     Sequence: IMAGE 1 → VIDEO → IMAGE 2 → INFORMATION -->
-<aside class="media-side right" aria-label="Right image video and information gallery">
-    <div class="media-box" data-gallery="right">
-        <div class="media-progress" aria-hidden="true">
-            <span></span><span></span><span></span><span></span>
-        </div>
-
-        <img class="side-media" src="photo3.jpg" alt="Mosquito Screen - First Image">
-        <video class="side-media" muted playsinline preload="metadata">
-            <source src="video2.mp4" type="video/mp4">
-        </video>
-        <img class="side-media" src="photo4.jpg" alt="Mosquito Screen - Second Image">
-
-        <div class="side-info">
-            <span class="info-label">Why Choose Us</span>
-            <h3>Clean Fit & Easy Use</h3>
-            <p>Explore different screen options for homes and offices, with custom sizing available for non-standard frames.</p>
-        </div>
-
-        <div class="media-caption">🖼️ Image → 🎥 Video → 🖼️ Image → ℹ️ Info</div>
-    </div>
-</aside>
-
 <div class="page">
 
-<header class="header">
-    <h1>Mr. Royal Mosquito Screens</h1>
-    <p>Udumalpet</p>
-</header>
-
-<main class="content">
-
-    <!-- CONTACT -->
-    <h2 class="section-title">Contact</h2>
-
-    <div class="contact-grid">
-
-        <div class="contact-card">
-            <h2>WhatsApp</h2>
-            <a href="https://wa.me/918344640555" target="_blank" rel="noopener noreferrer">
-                +91 83 44 640555
-            </a>
+    <!-- TOP NAVIGATION -->
+    <header class="navbar">
+        <div class="nav-left">
+            <div class="logo">W.</div>
+            <a href="#videos">Videos</a>
+            <a href="#contact">Contact</a>
+            <a href="#services">Services</a>
+            <a href="#faq">FAQs</a>
         </div>
 
-        <div class="contact-card">
-            <h2>Call</h2>
-            <a href="tel:+918344640555">
-                +91 83 44 640555
-            </a>
+        <div class="nav-right">
+            <a href="#contact">Login</a>
+            <a href="#contact">Sign up</a>
+            <a class="nominee-btn" href="#contact">Contact Us</a>
         </div>
+    </header>
 
-        <div class="contact-card">
-            <h2>Email</h2>
-            <a href="mailto:riazudeen2021@gmail.com">
-                riazudeen2021@gmail.com
-            </a>
-        </div>
+    <main class="main">
 
-    </div>
+        <!-- GREEN HIGHLIGHTED TITLE -->
+        <section class="hero">
+            <div class="hero-title">
+                Mr. Royal Mosquito Screens Udumalpet
 
-    <!-- LINKS -->
-    <section class="links-section">
+                <div class="hero-popup">
+                    <h3>Mr. Royal Mosquito Screens - Udumalpet</h3>
+                    <p>
+                        Professional mosquito-screen solutions for windows,
+                        doors, beds and custom-size installations.
+                        Move the mouse over this title to see this information.
+                    </p>
+                </div>
+            </div>
 
-        <h2 class="section-title">Links</h2>
+            <p class="hero-subtitle">
+                Custom mosquito screens • Window & Door Screens • Bed Nets
+            </p>
+        </section>
 
-        <div class="links-list">
+        <!-- RED HIGHLIGHTED VIDEO BOXES -->
+        <section id="videos" class="video-grid">
 
-            <a class="link-item"
-               href="https://g.co/kgs/3gouJWr"
-               target="_blank"
-               rel="noopener noreferrer">
+            <article class="video-card">
+                <video
+                    src="video1.mp4"
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata">
+                </video>
 
-                <div class="link-icon">🔗</div>
-
-                <div class="link-text">
-                    <h3>Google</h3>
-                    <span>g.co/kgs/3gouJWr</span>
+                <div class="video-popup">
+                    <strong>Video 1 - Window Mosquito Screens</strong>
+                    <span>
+                        Move the mouse over this box. The video automatically
+                        plays while the card is highlighted.
+                    </span>
                 </div>
 
-            </a>
+                <div class="video-info">
+                    <h2>Window Mosquito Screens</h2>
+                    <p>Homes • Offices • Apartments</p>
+                </div>
+            </article>
 
-            <a class="link-item"
-               href="https://maps.app.goo.gl/op9insNVTGua6NXu7"
-               target="_blank"
-               rel="noopener noreferrer">
+            <article class="video-card">
+                <video
+                    src="video2.mp4"
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata">
+                </video>
 
-                <div class="link-icon">📍</div>
-
-                <div class="link-text">
-                    <h3>Location</h3>
-                    <span>maps.app.goo.gl/op9insNVTGua6NXu7</span>
+                <div class="video-popup">
+                    <strong>Video 2 - Bed Mosquito Nets</strong>
+                    <span>
+                        Single, Double, King and Super King sizes.
+                        Custom sizes can also be discussed.
+                    </span>
                 </div>
 
-            </a>
+                <div class="video-info">
+                    <h2>Bed Mosquito Nets</h2>
+                    <p>Single • Double • King • Super King</p>
+                </div>
+            </article>
 
-            <a class="link-item"
-               href="https://wa.me/message/6VCHKPQ65NKSF1"
-               target="_blank"
-               rel="noopener noreferrer">
+            <article class="video-card">
+                <video
+                    src="video3.mp4"
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata">
+                </video>
 
-                <div class="link-icon">💬</div>
-
-                <div class="link-text">
-                    <h3>WhatsApp Message</h3>
-                    <span>wa.me/message/6VCHKPQ65NKSF1</span>
+                <div class="video-popup">
+                    <strong>Video 3 - Custom Mosquito Screens</strong>
+                    <span>
+                        Magnetic screens, door screens and custom
+                        installation for non-standard frames.
+                    </span>
                 </div>
 
-            </a>
+                <div class="video-info">
+                    <h2>Custom Mosquito Screens</h2>
+                    <p>Magnetic • Door • Custom Installation</p>
+                </div>
+            </article>
 
-        </div>
-    </section>
+        </section>
 
-    <!-- QUICK SERVICES TABLE -->
-    <section class="services-section">
+        <!-- BLUE HIGHLIGHTED INFORMATION AREA -->
+        <footer id="contact" class="footer-area">
 
-        <h2 class="section-title">Our Services</h2>
+            <div class="footer-hover-popup">
+                <strong>Mr. Royal Mosquito Screens - Contact & Information</strong>
+                <p>
+                    Move the mouse over the blue information area to see this
+                    quick information popup. Hover individual FAQ questions
+                    to display their answers.
+                </p>
+            </div>
 
-        <div class="table-wrap">
-            <table class="services-table">
+            <div class="footer-grid">
 
-                <thead>
-                    <tr>
-                        <th>Service</th>
-                        <th>Suitable For</th>
-                        <th>Custom Size</th>
-                    </tr>
-                </thead>
+                <!-- CONTACT -->
+                <div class="footer-column contact-box">
+                    <h3>Contact</h3>
 
-                <tbody>
-                    <tr>
-                        <td>🪟 Window Mosquito Screens</td>
-                        <td>Homes, Offices, Apartments</td>
-                        <td>Yes</td>
-                    </tr>
+                    <a class="contact-link" href="https://wa.me/918344640555" target="_blank">
+                        WhatsApp: +91 83 44 640555
+                    </a>
 
-                    <tr>
-                        <td>🛏️ Bed Mosquito Nets</td>
-                        <td>Single, Double, King &amp; Super King</td>
-                        <td>Yes</td>
-                    </tr>
+                    <a class="contact-link" href="tel:+918344640555">
+                        Call: +91 83 44 640555
+                    </a>
 
-                    <tr>
-                        <td>🧲 Magnetic Screens</td>
-                        <td>Windows &amp; Doors</td>
-                        <td>Yes</td>
-                    </tr>
+                    <a class="contact-link" href="mailto:riazudeen2021@gmail.com">
+                        Email: riazudeen2021@gmail.com
+                    </a>
 
-                    <tr>
-                        <td>🚪 Door Mosquito Screens</td>
-                        <td>Home &amp; Commercial Use</td>
-                        <td>Yes</td>
-                    </tr>
+                    <div class="contact-popup">
+                        <h4>Contact Mr. Royal Mosquito Screens</h4>
+                        <a href="https://wa.me/918344640555" target="_blank">
+                            WhatsApp: +91 83 44 640555
+                        </a>
+                        <a href="tel:+918344640555">
+                            Call: +91 83 44 640555
+                        </a>
+                        <a href="mailto:riazudeen2021@gmail.com">
+                            Email: riazudeen2021@gmail.com
+                        </a>
+                    </div>
+                </div>
 
-                    <tr>
-                        <td>🔧 Custom Installation</td>
-                        <td>Non-standard Frames</td>
-                        <td>Yes</td>
-                    </tr>
-                </tbody>
+                <!-- LINKS -->
+                <div class="footer-column">
+                    <h3>Links</h3>
+                    <ul>
+                        <li>
+                            <a href="https://g.co/kgs/3gouJWr" target="_blank">
+                                🔗 Google
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://g.co/kgs/3gouJWr" target="_blank">
+                                g.co/kgs/3gouJWr
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://maps.app.goo.gl/op9insNVTGua6NXu7" target="_blank">
+                                📍 Location
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://maps.app.goo.gl/op9insNVTGua6NXu7" target="_blank">
+                                maps.app.goo.gl/op9insNVTGua6NXu7
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://wa.me/message/6VCHKPQ65NKSF1" target="_blank">
+                                💬 WhatsApp Message
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://wa.me/message/6VCHKPQ65NKSF1" target="_blank">
+                                wa.me/message/6VCHKPQ65NKSF1
+                            </a>
+                        </li>
+                    </ul>
+                </div>
 
-            </table>
-        </div>
+                <!-- SERVICES -->
+                <div id="services" class="footer-column">
+                    <h3>Our Services</h3>
 
-    </section>
+                    <table class="services">
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Suitable For</th>
+                                <th>Custom</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>🪟 Window Mosquito Screens</td>
+                                <td>Homes, Offices, Apartments</td>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <td>🛏️ Bed Mosquito Nets</td>
+                                <td>Single, Double, King & Super King</td>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <td>🧲 Magnetic Screens</td>
+                                <td>Windows & Doors</td>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <td>🚪 Door Mosquito Screens</td>
+                                <td>Home & Commercial Use</td>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <td>🔧 Custom Installation</td>
+                                <td>Non-standard Frames</td>
+                                <td>Yes</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-    <!-- FAQ -->
-    <h2 class="faq-title">Frequently Asked Questions</h2>
+                <!-- QUICK INFO -->
+                <div class="footer-column">
+                    <h3>Quick Information</h3>
+                    <ul>
+                        <li>📐 Custom Size Available</li>
+                        <li>🪟 Window Screens</li>
+                        <li>🚪 Door Screens</li>
+                        <li>🛏️ Bed Nets</li>
+                        <li>🧲 Magnetic Screens</li>
+                        <li>🔧 Custom Installation</li>
+                    </ul>
+                </div>
 
-    <div class="faq-category">📐 Size &amp; Fit</div>
+            </div>
 
-    <details class="faq">
-        <summary>How do I measure my bed or window for a mosquito net?</summary>
-        <div class="answer">
-            Measure the complete width, height and length of the area where
-            the mosquito screen will be installed. For custom-size screens,
-            send the measurements to us before ordering.
-        </div>
-    </details>
+            <!-- FAQ -->
+            <section id="faq" class="faq-section">
+                <h2>Frequently Asked Questions</h2>
 
-    <details class="faq">
-        <summary>Do you have nets that fit king-size or super-king beds?</summary>
-        <div class="answer">
-            Yes. Size options can be selected based on your bed dimensions.
-            Custom sizes can also be discussed.
-        </div>
-    </details>
+                <div class="faq">
+                    <div class="faq-question">📐 How do I measure my bed or window for a mosquito net?</div>
+                    <div class="faq-answer">
+                        Measure the complete width, height and length of the area where the mosquito screen
+                        will be installed. For custom-size screens, send the measurements to us before ordering.
+                    </div>
+                </div>
 
-    <details class="faq">
-        <summary>Can these nets be used on bunk beds or baby cribs?</summary>
-        <div class="answer">
-            The suitable design depends on the exact size and installation
-            location. Please provide the dimensions before purchase.
-        </div>
-    </details>
+                <div class="faq">
+                    <div class="faq-question">📐 Do you have nets that fit king-size or super-king beds?</div>
+                    <div class="faq-answer">
+                        Yes. Size options can be selected based on your bed dimensions.
+                        Custom sizes can also be discussed.
+                    </div>
+                </div>
 
-    <details class="faq">
-        <summary>Do you offer custom-size nets for non-standard window frames?</summary>
-        <div class="answer">
-            Yes. Custom-size window mosquito screens can be made according
-            to the required measurements.
-        </div>
-    </details>
+                <div class="faq">
+                    <div class="faq-question">📐 Can these nets be used on bunk beds or baby cribs?</div>
+                    <div class="faq-answer">
+                        The suitable design depends on the exact size and installation location.
+                        Please provide the dimensions before purchase.
+                    </div>
+                </div>
 
-    <div class="faq-category">🛠️ Installation &amp; Setup</div>
+                <div class="faq">
+                    <div class="faq-question">📐 Do you offer custom-size nets for non-standard window frames?</div>
+                    <div class="faq-answer">
+                        Yes. Custom-size window mosquito screens can be made according to the required measurements.
+                    </div>
+                </div>
 
-    <details class="faq">
-        <summary>Do I need to drill holes in the wall or ceiling?</summary>
-        <div class="answer">
-            Installation requirements depend on the type of mosquito screen.
-            Some designs require fixing to the frame or wall, while other
-            designs can be installed without permanent drilling.
-        </div>
-    </details>
+                <div class="faq">
+                    <div class="faq-question">🛠️ Do I need to drill holes in the wall or ceiling?</div>
+                    <div class="faq-answer">
+                        Installation requirements depend on the type of mosquito screen. Some designs require
+                        fixing to the frame or wall, while other designs can be installed without permanent drilling.
+                    </div>
+                </div>
 
-    <details class="faq">
-        <summary>Does the bed net come with a standing frame?</summary>
-        <div class="answer">
-            This depends on the selected model. Please contact us with your
-            required bed size and installation type.
-        </div>
-    </details>
+                <div class="faq">
+                    <div class="faq-question">🛠️ Does the bed net come with a standing frame?</div>
+                    <div class="faq-answer">
+                        This depends on the selected model. Please contact us with your required bed size
+                        and installation type.
+                    </div>
+                </div>
 
-    <details class="faq">
-        <summary>How do magnetic window mosquito nets attach to the frame?</summary>
-        <div class="answer">
-            Magnetic screens generally use magnetic strips or magnetic
-            closures around the opening so the screen can be opened and
-            closed conveniently.
-        </div>
-    </details>
+                <div class="faq">
+                    <div class="faq-question">🛠️ How do magnetic window mosquito nets attach to the frame?</div>
+                    <div class="faq-answer">
+                        Magnetic screens generally use magnetic strips or magnetic closures around the opening
+                        so the screen can be opened and closed conveniently.
+                    </div>
+                </div>
 
-    <details class="faq">
-        <summary>Is it easy to take the net down?</summary>
-        <div class="answer">
-            Many removable mosquito-screen designs can be taken down when
-            required. The exact method depends on the installation type.
-        </div>
-    </details>
+                <div class="faq">
+                    <div class="faq-question">🛠️ Is it easy to take the net down?</div>
+                    <div class="faq-answer">
+                        Many removable mosquito-screen designs can be taken down when required.
+                        The exact method depends on the installation type.
+                    </div>
+                </div>
 
-    <div class="faq-category">🧵 Material &amp; Quality</div>
+                <div class="faq">
+                    <div class="faq-question">🧵 What material are the nets made from?</div>
+                    <div class="faq-answer">
+                        Available material can vary by product. Please contact Mr. Royal Mosquito Screens
+                        for the material options available.
+                    </div>
+                </div>
 
-    <details class="faq">
-        <summary>What material are the nets made from?</summary>
-        <div class="answer">
-            Available material can vary by product. Please contact Mr. Royal
-            Mosquito Screens for the material options available.
-        </div>
-    </details>
+                <div class="faq">
+                    <div class="faq-question">🧵 Are the nets treated with chemical insecticides?</div>
+                    <div class="faq-answer">
+                        Treatment depends on the particular product. Please confirm the specification
+                        of the selected screen before purchase.
+                    </div>
+                </div>
 
-    <details class="faq">
-        <summary>Are the nets treated with chemical insecticides?</summary>
-        <div class="answer">
-            Treatment depends on the particular product. Please confirm the
-            specification of the selected screen before purchase.
-        </div>
-    </details>
+                <div class="faq">
+                    <div class="faq-question">🧵 How small is the mesh size?</div>
+                    <div class="faq-answer">
+                        Mesh size depends on the selected product. Contact us for the exact mesh specification.
+                    </div>
+                </div>
 
-    <details class="faq">
-        <summary>How small is the mesh size?</summary>
-        <div class="answer">
-            Mesh size depends on the selected product. Contact us for the
-            exact mesh specification.
-        </div>
-    </details>
+                <div class="faq">
+                    <div class="faq-question">🧵 Is the fabric durable enough for homes with pets?</div>
+                    <div class="faq-answer">
+                        Durability depends on the selected mesh and frame. Please ask us for a suitable option
+                        if you have cats, dogs or other pets.
+                    </div>
+                </div>
 
-    <details class="faq">
-        <summary>Is the fabric durable enough for homes with pets?</summary>
-        <div class="answer">
-            Durability depends on the selected mesh and frame. Please ask us
-            for a suitable option if you have cats, dogs or other pets.
-        </div>
-    </details>
+                <div class="faq">
+                    <div class="faq-question">🧺 Can I wash the mosquito net in a washing machine?</div>
+                    <div class="faq-answer">
+                        Cleaning instructions depend on the material. Check the product-specific care
+                        instructions before machine washing.
+                    </div>
+                </div>
 
-    <div class="faq-category">🧺 Maintenance &amp; Care</div>
+                <div class="faq">
+                    <div class="faq-question">🧺 How should I clean a magnetic or roller window screen?</div>
+                    <div class="faq-answer">
+                        Gently remove dust using a soft brush or vacuum attachment.
+                        Follow the care instructions for the particular screen.
+                    </div>
+                </div>
 
-    <details class="faq">
-        <summary>Can I wash the mosquito net in a washing machine?</summary>
-        <div class="answer">
-            Cleaning instructions depend on the material. Check the
-            product-specific care instructions before machine washing.
-        </div>
-    </details>
+                <div class="faq">
+                    <div class="faq-question">🧺 Can I iron the net if it gets wrinkled?</div>
+                    <div class="faq-answer">
+                        Avoid high heat directly on the net unless the material is specifically confirmed
+                        to be safe for ironing.
+                    </div>
+                </div>
 
-    <details class="faq">
-        <summary>How should I clean a magnetic or roller window screen?</summary>
-        <div class="answer">
-            Gently remove dust using a soft brush or vacuum attachment.
-            Follow the care instructions for the particular screen.
-        </div>
-    </details>
+                <div class="faq">
+                    <div class="faq-question">🧺 What is the best way to store the net?</div>
+                    <div class="faq-answer">
+                        Clean and completely dry the net before storing it. Keep it folded or rolled in
+                        a dry place away from moisture and sharp objects.
+                    </div>
+                </div>
 
-    <details class="faq">
-        <summary>Can I iron the net if it gets wrinkled?</summary>
-        <div class="answer">
-            Avoid high heat directly on the net unless the material is
-            specifically confirmed to be safe for ironing.
-        </div>
-    </details>
+                <div class="faq">
+                    <div class="faq-question">🚪 Do you have pop-up mosquito nets?</div>
+                    <div class="faq-answer">
+                        Product availability depends on the current range. Contact us to check available
+                        pop-up or removable models.
+                    </div>
+                </div>
 
-    <details class="faq">
-        <summary>What is the best way to store the net?</summary>
-        <div class="answer">
-            Clean and completely dry the net before storing it. Keep it
-            folded or rolled in a dry place away from moisture and sharp
-            objects.
-        </div>
-    </details>
+                <div class="faq">
+                    <div class="faq-question">🚪 Can mosquito nets be used outdoors?</div>
+                    <div class="faq-answer">
+                        Some mosquito-screen products can be used outdoors. Suitability depends on
+                        the product, installation and weather exposure.
+                    </div>
+                </div>
 
-    <div class="faq-category">🚪 Types &amp; Functionality</div>
+                <div class="faq">
+                    <div class="faq-question">🚪 How does the opening and closure work?</div>
+                    <div class="faq-answer">
+                        Depending on the design, opening and closure may use zippers, magnets,
+                        overlapping mesh or other fixing methods.
+                    </div>
+                </div>
 
-    <details class="faq">
-        <summary>Do you have pop-up mosquito nets?</summary>
-        <div class="answer">
-            Product availability depends on the current range. Contact us
-            to check available pop-up or removable models.
-        </div>
-    </details>
+                <div class="faq">
+                    <div class="faq-question">🚪 Do window nets block fresh air or the outside view?</div>
+                    <div class="faq-answer">
+                        Mosquito screens are designed to allow ventilation while helping keep insects outside.
+                        Visibility and airflow depend on the mesh design.
+                    </div>
+                </div>
 
-    <details class="faq">
-        <summary>Can mosquito nets be used outdoors?</summary>
-        <div class="answer">
-            Some mosquito-screen products can be used outdoors. Suitability
-            depends on the product, installation and weather exposure.
-        </div>
-    </details>
+                <div class="faq">
+                    <div class="faq-question">📦 What is the return policy if the net doesn't fit?</div>
+                    <div class="faq-answer">
+                        Please confirm measurements before ordering. For custom-size products,
+                        return conditions may differ. Contact us before placing an order for the applicable policy.
+                    </div>
+                </div>
 
-    <details class="faq">
-        <summary>How does the opening and closure work?</summary>
-        <div class="answer">
-            Depending on the design, opening and closure may use zippers,
-            magnets, overlapping mesh or other fixing methods.
-        </div>
-    </details>
+                <div class="faq">
+                    <div class="faq-question">📦 Do products come with a warranty?</div>
+                    <div class="faq-answer">
+                        Warranty availability depends on the product. Please confirm the applicable
+                        warranty terms before purchase.
+                    </div>
+                </div>
 
-    <details class="faq">
-        <summary>Do window nets block fresh air or the outside view?</summary>
-        <div class="answer">
-            Mosquito screens are designed to allow ventilation while helping
-            keep insects outside. Visibility and airflow depend on the mesh
-            design.
-        </div>
-    </details>
+                <div class="faq">
+                    <div class="faq-question">📦 How long does shipping take?</div>
+                    <div class="faq-answer">
+                        Delivery time depends on product availability, customization and delivery location.
+                        Contact us for the current estimate.
+                    </div>
+                </div>
+            </section>
 
-    <div class="faq-category">📦 Shipping, Returns &amp; Warranty</div>
+            <div class="bottom-row">
+                <div class="copyright">
+                    © 2026 Mr. Royal Mosquito Screens - Udumalpet
+                </div>
 
-    <details class="faq">
-        <summary>What is the return policy if the net doesn't fit?</summary>
-        <div class="answer">
-            Please confirm measurements before ordering. For custom-size
-            products, return conditions may differ. Contact us before
-            placing an order for the applicable policy.
-        </div>
-    </details>
+                <div class="bottom-links">
+                    <a href="#contact">Contact</a>
+                    <a href="#services">Services</a>
+                    <a href="#faq">FAQs</a>
+                    <a href="https://wa.me/918344640555" target="_blank">WhatsApp</a>
+                    <a href="tel:+918344640555">Call</a>
+                    <a href="mailto:riazudeen2021@gmail.com">Email</a>
+                </div>
+            </div>
 
-    <details class="faq">
-        <summary>Do products come with a warranty?</summary>
-        <div class="answer">
-            Warranty availability depends on the product. Please confirm
-            the applicable warranty terms before purchase.
-        </div>
-    </details>
+        </footer>
 
-    <details class="faq">
-        <summary>How long does shipping take?</summary>
-        <div class="answer">
-            Delivery time depends on product availability, customization
-            and delivery location. Contact us for the current estimate.
-        </div>
-    </details>
-
-    <div class="video-status">
-        🎥 <strong>Background + Side Media Gallery</strong><br>
-        Background media continues automatically. Side boxes show Image → Video → Image → Information.
-    </div>
-
-</main>
-
-<footer class="footer">
-    © 2026 Mr. Royal Mosquito Screens - Udumalpet
-</footer>
-
+    </main>
 </div>
 
 <script>
-/* =========================================================
-   RANDOM BACKGROUND GALLERY
-   10 PHOTOS + 10 VIDEOS
-
-   Files required beside index.html:
-   photo1.jpg ... photo10.jpg
-   video1.mp4 ... video10.mp4
-
-   The page randomly selects either an image or a video.
-   Images stay for 5 seconds.
-   Videos play until they finish.
-   The same item is not immediately repeated.
-   ========================================================= */
-
-const mediaItems = Array.from(
-    document.querySelectorAll(".bg-media")
-);
-
-let currentIndex = -1;
-let timer = null;
-
-function getRandomIndex(){
-
-    if(mediaItems.length <= 1){
-        return 0;
-    }
-
-    let index;
-
-    do{
-        index = Math.floor(Math.random() * mediaItems.length);
-    }while(index === currentIndex);
-
-    return index;
-}
-
-function hideAllMedia(){
-
-    mediaItems.forEach(media => {
-
-        media.classList.remove("active");
-
-        if(media.tagName.toLowerCase() === "video"){
-
-            try{
-                media.pause();
-                media.currentTime = 0;
-            }catch(error){}
-
-        }
-    });
-}
-
-function showRandomMedia(){
-
-    clearTimeout(timer);
-
-    if(!mediaItems.length){
-        return;
-    }
-
-    const index = getRandomIndex();
-    currentIndex = index;
-
-    hideAllMedia();
-
-    const media = mediaItems[index];
-
-    media.classList.add("active");
-
-    /* IMAGE */
-    if(media.tagName.toLowerCase() === "img"){
-
-        timer = setTimeout(() => {
-            showRandomMedia();
-        }, 5000);
-
-        return;
-    }
-
-    /* VIDEO */
-    if(media.tagName.toLowerCase() === "video"){
-
-        media.muted = true;
-        media.playsInline = true;
-
-        media.onended = function(){
-            showRandomMedia();
-        };
-
-        media.onerror = function(){
-
-            console.warn(
-                "Media file could not be loaded:",
-                media.querySelector("source")?.src
-            );
-
-            media.classList.remove("active");
-
-            timer = setTimeout(() => {
-                showRandomMedia();
-            }, 800);
-        };
-
-        const playPromise = media.play();
-
-        if(playPromise !== undefined){
-            playPromise.catch(() => {});
-        }
-    }
-}
-
-/* Start random photo/video gallery */
-showRandomMedia();
-
-/* Mobile browser support */
-function resumeMedia(){
-
-    const activeMedia =
-        document.querySelector(".bg-media.active");
-
-    if(activeMedia &&
-       activeMedia.tagName.toLowerCase() === "video"){
-
-        activeMedia.muted = true;
-        activeMedia.playsInline = true;
-
-        const p = activeMedia.play();
-
-        if(p !== undefined){
-            p.catch(() => {});
-        }
-
-    }else if(!activeMedia){
-
-        showRandomMedia();
-    }
-}
-
-document.addEventListener(
-    "touchstart",
-    resumeMedia,
-    {passive:true}
-);
-
-document.addEventListener(
-    "click",
-    resumeMedia,
-    {passive:true}
-);
-
-document.addEventListener(
-    "visibilitychange",
-    function(){
-
-        if(!document.hidden){
-            resumeMedia();
-        }
-
-    }
-);
-
-/* Skip a missing image automatically */
-mediaItems.forEach((media) => {
-
-    media.addEventListener("error", function(){
-
-        console.warn(
-            "Background media not found:",
-            media.src ||
-            media.querySelector("source")?.src
-        );
-
-        if(media.classList.contains("active")){
-            showRandomMedia();
-        }
-    });
-
-});
-</script>
-
-
-<!-- BACK TO TOP -->
-<button class="back-to-top" id="backToTop" aria-label="Back to top" title="Back to top">↑</button>
-
-<script>
-const backToTop = document.getElementById("backToTop");
-window.addEventListener("scroll", function(){
-    if(window.scrollY > 400){
-        backToTop.classList.add("show");
-    }else{
-        backToTop.classList.remove("show");
-    }
-});
-backToTop.addEventListener("click", function(){
-    window.scrollTo({top:0, behavior:"smooth"});
-});
-</script>
-
-<script>
-/* =========================================================
-   SIDE MEDIA STORY GALLERY
-   Each box plays this sequence:
-   1. First image - 5 seconds
-   2. Video - plays until the video ends
-   3. Second image - 5 seconds
-   4. Information card - 6 seconds
-   Then it starts again.
-
-   LEFT:
-   photo1.jpg -> video1.mp4 -> photo2.jpg -> information
-
-   RIGHT:
-   photo3.jpg -> video2.mp4 -> photo4.jpg -> information
-   ========================================================= */
-
-(function(){
-    const boxes = document.querySelectorAll(".media-box");
-
-    boxes.forEach((box) => {
-        const media = box.querySelectorAll(".side-media");
-        const info = box.querySelector(".side-info");
-        const progress = box.querySelectorAll(".media-progress span");
-        let current = -1;
-        let timer = null;
-
-        function clearGalleryTimer(){
-            clearTimeout(timer);
-        }
-
-        function hideAll(){
-            media.forEach(item => {
-                item.classList.remove("active");
-
-                if(item.tagName.toLowerCase() === "video"){
-                    try{
-                        item.pause();
-                        item.currentTime = 0;
-                    }catch(error){}
-                }
-            });
-
-            if(info){
-                info.classList.remove("active");
-            }
-
-            progress.forEach(item => item.classList.remove("active"));
-        }
-
-        function updateProgress(index){
-            progress.forEach((item, i) => {
-                item.classList.toggle("active", i === index);
-            });
-        }
-
-        function showNext(){
-            clearGalleryTimer();
-
-            if(!media.length && !info) return;
-
-            current = (current + 1) % 4;
-            hideAll();
-            updateProgress(current);
-
-            /* 1 = first image */
-            if(current === 0){
-                const item = media[0];
-                item.classList.add("active");
-                timer = setTimeout(showNext, 5000);
-                return;
-            }
-
-            /* 2 = video */
-            if(current === 1){
-                const item = media[1];
-                item.classList.add("active");
-
-                item.muted = true;
-                item.playsInline = true;
-
-                item.onended = function(){
-                    showNext();
-                };
-
-                item.onerror = function(){
-                    timer = setTimeout(showNext, 800);
-                };
-
-                const playPromise = item.play();
-
-                if(playPromise !== undefined){
-                    playPromise.catch(() => {
-                        /* If autoplay is blocked, continue after 5 seconds. */
-                        timer = setTimeout(showNext, 5000);
-                    });
-                }
-
-                return;
-            }
-
-            /* 3 = second image */
-            if(current === 2){
-                const item = media[2];
-                item.classList.add("active");
-                timer = setTimeout(showNext, 5000);
-                return;
-            }
-
-            /* 4 = information card */
-            if(current === 3){
-                if(info){
-                    info.classList.add("active");
-                }
-
-                timer = setTimeout(showNext, 6000);
-            }
-        }
-
-        /* Clicking the side box restarts a paused video if the browser blocked autoplay. */
-        box.addEventListener("click", function(){
-            const activeVideo = box.querySelector("video.side-media.active");
-
-            if(activeVideo){
-                activeVideo.muted = true;
-                activeVideo.playsInline = true;
-                activeVideo.play().catch(() => {});
-            }
+/* ==========================================
+   VIDEO HOVER CONTROL
+   Video plays when mouse enters the red box.
+   It pauses when mouse leaves.
+   ========================================== */
+
+document.querySelectorAll(".video-card").forEach(function(card){
+
+    const video = card.querySelector("video");
+
+    card.addEventListener("mouseenter", function(){
+        video.currentTime = 0;
+        video.play().catch(function(error){
+            console.log("Video play was blocked:", error);
         });
-
-        showNext();
     });
-})();
+
+    card.addEventListener("mouseleave", function(){
+        video.pause();
+        video.currentTime = 0;
+    });
+
+    /* Mobile/touch: tapping a card starts/stops the video */
+    card.addEventListener("click", function(){
+        if(video.paused){
+            video.play().catch(function(){});
+        }else{
+            video.pause();
+        }
+    });
+});
 </script>
 
 </body>
