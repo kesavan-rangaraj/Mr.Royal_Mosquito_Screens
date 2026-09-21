@@ -237,42 +237,6 @@ body{
     font-size:13px;
 }
 
-/* popup shown when mouse is over each red highlighted video */
-.video-popup{
-    position:absolute;
-    left:12px;
-    right:12px;
-    top:12px;
-    padding:14px;
-    border-radius:10px;
-    background:rgba(5,12,17,.94);
-    border:1px solid rgba(255,255,255,.45);
-    opacity:0;
-    visibility:hidden;
-    transform:translateY(-8px);
-    transition:.22s ease;
-    z-index:8;
-    pointer-events:none;
-}
-
-.video-card:hover .video-popup{
-    opacity:1;
-    visibility:visible;
-    transform:translateY(0);
-}
-
-.video-popup strong{
-    display:block;
-    margin-bottom:5px;
-    font-size:15px;
-}
-
-.video-popup span{
-    color:#d8d8d8;
-    font-size:12px;
-    line-height:1.4;
-}
-
 /* =========================
    BLUE INFORMATION AREA
    ========================= */
@@ -615,16 +579,7 @@ body{
                     playsinline
                     preload="metadata">
                 </video>
-
-                <div class="video-popup">
-                    <strong>Video 1 - Window Mosquito Screens</strong>
-                    <span>
-                        Move the mouse over this box. The video automatically
-                        plays while the card is highlighted.
-                    </span>
-                </div>
-
-                <div class="video-info">
+<div class="video-info">
                     <h2>Window Mosquito Screens</h2>
                     <p>Homes • Offices • Apartments</p>
                 </div>
@@ -638,16 +593,7 @@ body{
                     playsinline
                     preload="metadata">
                 </video>
-
-                <div class="video-popup">
-                    <strong>Video 2 - Bed Mosquito Nets</strong>
-                    <span>
-                        Single, Double, King and Super King sizes.
-                        Custom sizes can also be discussed.
-                    </span>
-                </div>
-
-                <div class="video-info">
+<div class="video-info">
                     <h2>Bed Mosquito Nets</h2>
                     <p>Single • Double • King • Super King</p>
                 </div>
@@ -661,16 +607,7 @@ body{
                     playsinline
                     preload="metadata">
                 </video>
-
-                <div class="video-popup">
-                    <strong>Video 3 - Custom Mosquito Screens</strong>
-                    <span>
-                        Magnetic screens, door screens and custom
-                        installation for non-standard frames.
-                    </span>
-                </div>
-
-                <div class="video-info">
+<div class="video-info">
                     <h2>Custom Mosquito Screens</h2>
                     <p>Magnetic • Door • Custom Installation</p>
                 </div>
@@ -1059,3 +996,4 @@ document.querySelectorAll(".video-card").forEach(function(card){
 
 </body>
 </html>
+
