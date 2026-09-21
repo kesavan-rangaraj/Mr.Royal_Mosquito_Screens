@@ -501,9 +501,14 @@ body{
 
 
 /* =========================================================
-   SIDE IMAGE + VIDEO BOXES
-   Desktop: left and right of the existing center page.
-   Mobile: placed below the main content.
+   SIDE MEDIA STORY BOXES
+   Sequence:
+   1) First image
+   2) Video
+   3) Second image
+   4) Information card
+   Desktop: left and right side
+   Mobile: below the main content
    ========================================================= */
 
 .media-side{
@@ -514,16 +519,11 @@ body{
     min-width:250px;
     height:calc(100vh - 105px);
     z-index:2;
-    pointer-events:none;
+    pointer-events:auto;
 }
 
-.media-side.left{
-    left:14px;
-}
-
-.media-side.right{
-    right:14px;
-}
+.media-side.left{ left:14px; }
+.media-side.right{ right:14px; }
 
 .media-box{
     position:relative;
@@ -544,7 +544,7 @@ body{
     inset:9%;
     border:8px solid #e5f000;
     border-radius:50%;
-    z-index:4;
+    z-index:5;
     pointer-events:none;
     opacity:.90;
     transform:rotate(-8deg);
@@ -556,7 +556,7 @@ body{
     inset:13%;
     border:3px solid rgba(229,240,0,.82);
     border-radius:50%;
-    z-index:4;
+    z-index:5;
     pointer-events:none;
     transform:rotate(7deg);
 }
@@ -569,11 +569,67 @@ body{
     object-fit:cover;
     object-position:center;
     opacity:0;
-    transition:opacity .8s ease;
+    visibility:hidden;
+    transition:opacity .8s ease, visibility .8s ease;
+    z-index:1;
 }
 
 .side-media.active{
     opacity:1;
+    visibility:visible;
+}
+
+.side-info{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    padding:28px 22px;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(10,20,30,.08) 0%,
+            rgba(10,20,30,.20) 35%,
+            rgba(10,20,30,.82) 100%
+        );
+    color:#fff;
+    opacity:0;
+    visibility:hidden;
+    transition:opacity .8s ease, visibility .8s ease;
+    z-index:2;
+}
+
+.side-info.active{
+    opacity:1;
+    visibility:visible;
+}
+
+.side-info .info-label{
+    display:inline-block;
+    width:max-content;
+    max-width:100%;
+    padding:7px 11px;
+    margin-bottom:10px;
+    border-radius:20px;
+    background:rgba(229,240,0,.95);
+    color:#14212b;
+    font-size:12px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.7px;
+}
+
+.side-info h3{
+    font-size:clamp(22px,2.1vw,32px);
+    line-height:1.08;
+    margin-bottom:10px;
+}
+
+.side-info p{
+    font-size:clamp(14px,1.25vw,17px);
+    line-height:1.5;
+    color:rgba(255,255,255,.92);
 }
 
 .media-caption{
@@ -586,12 +642,35 @@ body{
     padding:9px 12px;
     text-align:center;
     border-radius:12px;
-    background:rgba(255,255,255,.70);
+    background:rgba(255,255,255,.72);
     border:1px solid rgba(255,255,255,.85);
     color:#17324d;
     font-weight:700;
     font-size:14px;
     box-shadow:0 4px 14px rgba(0,0,0,.16);
+    pointer-events:none;
+}
+
+.media-progress{
+    position:absolute;
+    left:18px;
+    right:18px;
+    top:16px;
+    display:flex;
+    gap:5px;
+    z-index:7;
+}
+
+.media-progress span{
+    flex:1;
+    height:4px;
+    border-radius:10px;
+    background:rgba(255,255,255,.40);
+    overflow:hidden;
+}
+
+.media-progress span.active{
+    background:#e5f000;
 }
 
 @media(max-width:1100px){
@@ -600,9 +679,7 @@ body{
         min-width:190px;
     }
 
-    .media-box::before{
-        border-width:6px;
-    }
+    .media-box::before{ border-width:6px; }
 }
 
 @media(max-width:800px){
@@ -618,41 +695,37 @@ body{
         margin:16px auto;
     }
 
-    .media-side.left{
-        order:1;
-    }
-
-    .media-side.right{
-        order:3;
-    }
+    .media-side.left{ order:1; }
+    .media-side.right{ order:3; }
 
     .page{
         display:flex;
         flex-direction:column;
     }
 
-    .header{
-        order:0;
-    }
-
-    .content{
-        order:2;
-    }
-
-    .footer{
-        order:4;
-    }
+    .header{ order:0; }
+    .content{ order:2; }
+    .footer{ order:4; }
 
     .media-box::before{
         inset:16%;
         border-width:6px;
     }
 
-    .media-box::after{
-        inset:20%;
+    .media-box::after{ inset:20%; }
+
+    .side-info{
+        padding:24px 18px;
+    }
+
+    .side-info h3{
+        font-size:24px;
+    }
+
+    .side-info p{
+        font-size:14px;
     }
 }
-
 </style>
 </head>
 
@@ -727,25 +800,51 @@ body{
 </div>
 
 
-<!-- LEFT IMAGE + VIDEO BOX -->
-<aside class="media-side left" aria-label="Left image and video gallery">
-    <div class="media-box">
-        <img class="side-media" src="photo1.jpg" alt="Mosquito Screen Image">
+<!-- LEFT MEDIA STORY
+     Sequence: IMAGE 1 → VIDEO → IMAGE 2 → INFORMATION -->
+<aside class="media-side left" aria-label="Left image video and information gallery">
+    <div class="media-box" data-gallery="left">
+        <div class="media-progress" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+        </div>
+
+        <img class="side-media" src="photo1.jpg" alt="Mosquito Screen - First Image">
         <video class="side-media" muted playsinline preload="metadata">
             <source src="video1.mp4" type="video/mp4">
         </video>
-        <div class="media-caption">🖼️ Image &nbsp; • &nbsp; 🎥 Video</div>
+        <img class="side-media" src="photo2.jpg" alt="Mosquito Screen - Second Image">
+
+        <div class="side-info">
+            <span class="info-label">Our Service</span>
+            <h3>Custom Mosquito Screens</h3>
+            <p>Made to suit your windows, doors and required measurements. Watch the video to see the product in action.</p>
+        </div>
+
+        <div class="media-caption">🖼️ Image → 🎥 Video → 🖼️ Image → ℹ️ Info</div>
     </div>
 </aside>
 
-<!-- RIGHT IMAGE + VIDEO BOX -->
-<aside class="media-side right" aria-label="Right image and video gallery">
-    <div class="media-box">
-        <img class="side-media" src="photo2.jpg" alt="Mosquito Screen Image">
+<!-- RIGHT MEDIA STORY
+     Sequence: IMAGE 1 → VIDEO → IMAGE 2 → INFORMATION -->
+<aside class="media-side right" aria-label="Right image video and information gallery">
+    <div class="media-box" data-gallery="right">
+        <div class="media-progress" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+        </div>
+
+        <img class="side-media" src="photo3.jpg" alt="Mosquito Screen - First Image">
         <video class="side-media" muted playsinline preload="metadata">
             <source src="video2.mp4" type="video/mp4">
         </video>
-        <div class="media-caption">🖼️ Image &nbsp; • &nbsp; 🎥 Video</div>
+        <img class="side-media" src="photo4.jpg" alt="Mosquito Screen - Second Image">
+
+        <div class="side-info">
+            <span class="info-label">Why Choose Us</span>
+            <h3>Clean Fit & Easy Use</h3>
+            <p>Explore different screen options for homes and offices, with custom sizing available for non-standard frames.</p>
+        </div>
+
+        <div class="media-caption">🖼️ Image → 🎥 Video → 🖼️ Image → ℹ️ Info</div>
     </div>
 </aside>
 
@@ -1097,9 +1196,8 @@ body{
     </details>
 
     <div class="video-status">
-        🎥 <strong>Background Video Gallery</strong><br>
-        10 photos + 10 videos are available. The website randomly selects photos or videos and
-        displays them full-screen behind the page.
+        🎥 <strong>Background + Side Media Gallery</strong><br>
+        Background media continues automatically. Side boxes show Image → Video → Image → Information.
     </div>
 
 </main>
@@ -1312,68 +1410,135 @@ backToTop.addEventListener("click", function(){
 
 <script>
 /* =========================================================
-   SIDE BOX IMAGE + VIDEO GALLERY
-   Uses the existing photo/video files.
+   SIDE MEDIA STORY GALLERY
+   Each box plays this sequence:
+   1. First image - 5 seconds
+   2. Video - plays until the video ends
+   3. Second image - 5 seconds
+   4. Information card - 6 seconds
+   Then it starts again.
+
+   LEFT:
+   photo1.jpg -> video1.mp4 -> photo2.jpg -> information
+
+   RIGHT:
+   photo3.jpg -> video2.mp4 -> photo4.jpg -> information
    ========================================================= */
 
 (function(){
     const boxes = document.querySelectorAll(".media-box");
 
-    boxes.forEach((box, boxNumber) => {
+    boxes.forEach((box) => {
         const media = box.querySelectorAll(".side-media");
+        const info = box.querySelector(".side-info");
+        const progress = box.querySelectorAll(".media-progress span");
         let current = -1;
         let timer = null;
+
+        function clearGalleryTimer(){
+            clearTimeout(timer);
+        }
 
         function hideAll(){
             media.forEach(item => {
                 item.classList.remove("active");
 
                 if(item.tagName.toLowerCase() === "video"){
-                    item.pause();
-                    item.currentTime = 0;
+                    try{
+                        item.pause();
+                        item.currentTime = 0;
+                    }catch(error){}
                 }
+            });
+
+            if(info){
+                info.classList.remove("active");
+            }
+
+            progress.forEach(item => item.classList.remove("active"));
+        }
+
+        function updateProgress(index){
+            progress.forEach((item, i) => {
+                item.classList.toggle("active", i === index);
             });
         }
 
         function showNext(){
-            clearTimeout(timer);
+            clearGalleryTimer();
 
-            if(!media.length) return;
+            if(!media.length && !info) return;
 
-            current = (current + 1) % media.length;
+            current = (current + 1) % 4;
             hideAll();
+            updateProgress(current);
 
-            const item = media[current];
-            item.classList.add("active");
-
-            if(item.tagName.toLowerCase() === "img"){
+            /* 1 = first image */
+            if(current === 0){
+                const item = media[0];
+                item.classList.add("active");
                 timer = setTimeout(showNext, 5000);
-            }else{
+                return;
+            }
+
+            /* 2 = video */
+            if(current === 1){
+                const item = media[1];
+                item.classList.add("active");
+
                 item.muted = true;
                 item.playsInline = true;
 
-                item.onended = showNext;
+                item.onended = function(){
+                    showNext();
+                };
 
-                const p = item.play();
-                if(p !== undefined){
-                    p.catch(() => {
+                item.onerror = function(){
+                    timer = setTimeout(showNext, 800);
+                };
+
+                const playPromise = item.play();
+
+                if(playPromise !== undefined){
+                    playPromise.catch(() => {
+                        /* If autoplay is blocked, continue after 5 seconds. */
                         timer = setTimeout(showNext, 5000);
                     });
                 }
+
+                return;
+            }
+
+            /* 3 = second image */
+            if(current === 2){
+                const item = media[2];
+                item.classList.add("active");
+                timer = setTimeout(showNext, 5000);
+                return;
+            }
+
+            /* 4 = information card */
+            if(current === 3){
+                if(info){
+                    info.classList.add("active");
+                }
+
+                timer = setTimeout(showNext, 6000);
             }
         }
 
-        /* Start with image, then video. */
-        showNext();
-
+        /* Clicking the side box restarts a paused video if the browser blocked autoplay. */
         box.addEventListener("click", function(){
-            const active = box.querySelector(".side-media.active");
+            const activeVideo = box.querySelector("video.side-media.active");
 
-            if(active && active.tagName.toLowerCase() === "video"){
-                active.muted = true;
-                active.play().catch(() => {});
+            if(activeVideo){
+                activeVideo.muted = true;
+                activeVideo.playsInline = true;
+                activeVideo.play().catch(() => {});
             }
         });
+
+        showNext();
     });
 })();
 </script>
